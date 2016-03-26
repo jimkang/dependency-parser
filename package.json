@@ -1,0 +1,33 @@
+{
+  "name": "dependency-parser",
+  "version": "1.0.0",
+  "description": "Parses sentences into dependency trees.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/dependency-parser.git"
+  },
+  "keywords": [
+    "language",
+    "grammar",
+    "parse",
+    "dependency",
+    "sentence",
+    "diagramming"
+  ],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/dependency-parser/issues"
+  },
+  "homepage": "https://github.com/jimkang/dependency-parser",
+  "devDependencies": {},
+  "dependencies": {
+    "lodash.contains": "^2.4.3",
+    "lodash.intersection": "^4.1.1",
+    "tap": "^5.7.0"
+  }
+}
