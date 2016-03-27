@@ -1,4 +1,5 @@
 var test = require('tap').test;
+// var test = require('tape');
 var canDepend = require('../grammar/english-can-depend');
 
 var testCases = [
@@ -86,6 +87,18 @@ var testCases = [
     posB: ['adverb'],
     expected: false
   },
+  {
+    name: 'Verb can depend on conjunction',
+    posA: ['verb'],
+    posB: ['conjunction'],
+    expected: true
+  },
+  {
+    name: 'Conjunction cannot depend on verb',
+    posA: ['conjunction'],
+    posB: ['verb'],
+    expected: false
+  }
 ];
 
 testCases.forEach(runTest);

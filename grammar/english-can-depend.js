@@ -9,6 +9,10 @@ function partsOfSpeechCanDependOnPartsOfSpeech(posA, posB) {
     canDepend = intersection(posA, ['adjective', 'article', 'noun']).length > 0;
   }
 
+  if (!canDepend && contains(posB, 'conjunction')) {
+    canDepend = contains(posA, 'verb');
+  }
+
   return canDepend;
 }
 

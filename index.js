@@ -79,8 +79,8 @@ function tagWithSentencePosition(wordNode, i) {
 function isDependent(wordNode, potentialHead) {
   var currentNode = wordNode;
   while ('head' in currentNode) {
-    // console.log('isDependent wordNode', wordNode);
-    currentNode = wordNode.head;
+    // console.log('isDependent currentNode', currentNode);
+    currentNode = currentNode.head;
     if (currentNode.sentencePos === potentialHead.sentencePos) {
       return true;
     }
