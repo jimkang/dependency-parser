@@ -59,33 +59,35 @@ Usage
     console.log(parse(sentence));
 
 Output:
-        
+
     {
       "word": "am",
       "pos": ["verb"],
-      "dependents": [
+      "sentencePos": 1,
+      "children": [
         {
           "word": "I",
           "pos": ["noun"],
           "directionFromHead": -1,
-          "dependents": []
+          "sentencePos": 0
         },
         {
           "word": "dog",
           "pos": ["noun"],
           "directionFromHead": 1,
-          dependents: [
+          "sentencePos": 4
+          "children": [
             {
               "word": "a",
               "pos": ["article"],
               "directionFromHead": -1,
-              "dependents": []
+              "sentencePos": 2
             },
             {
               "word": "great",
-              "pos": ["adjective", "noun"],
+              "pos": ["adjective"],
               "directionFromHead": -1,
-              "dependents": []
+              "sentencePos": 3
             }
           ]
         }

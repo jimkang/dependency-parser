@@ -24,7 +24,9 @@
     "url": "https://github.com/jimkang/dependency-parser/issues"
   },
   "homepage": "https://github.com/jimkang/dependency-parser",
-  "devDependencies": {},
+  "devDependencies": {
+    "tape": "^4.5.1"
+  },
   "dependencies": {
     "lodash.contains": "^2.4.3",
     "lodash.intersection": "^4.1.1",
