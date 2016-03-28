@@ -1,5 +1,5 @@
-var test = require('tap').test;
-// var test = require('tape');
+// var test = require('tap').test;
+var test = require('tape');
 var DependencyParser = require('../index');
 
 var testCases = [

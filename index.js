@@ -17,27 +17,34 @@ function DependencyParser(createOpts) {
 
     sentence.forEach(tagWithSentencePosition);
     sentence.forEach(sortWord);
-    // console.log(JSON.stringify(sentence, null, '  '));
+    console.log(JSON.stringify(sentence, null, '  '));
     return flipTreeHeadToChild(sentence);
 
     function sortWord(wordNode, sentenceIndex) {
       // console.log('wordNode', wordNode);
       // wordsEncountered.unshift(wordNode);
-      var nextVersionOfHeadless = [];
+      if (wordNode.word === 'and') {
+        debugger;
+      }
+
+      var headlessIndexesToDelete = [];
+
       for (var i = 0; i < headless.length; ++i) {
         var headlessWordNode = headless[i];
-        // if (!wordNode.pos) {
-        // }
         if (canDepend(headlessWordNode.pos, wordNode.pos)) {
+          if (headlessWordNode.word === 'and') {
+            debugger;
+          }
           headlessWordNode.head = wordNode;
+          headlessIndexesToDelete.push(i);
         }
         else {
-          nextVersionOfHeadless.push(headlessWordNode);
           break;
         }
       }
 
-      headless = nextVersionOfHeadless;
+      headlessIndexesToDelete.reverse().forEach(deleteFromHeadless);
+      console.log('headless', headless);
 
       var precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
       if (precedingNode) {
@@ -53,6 +60,10 @@ function DependencyParser(createOpts) {
       if (!wordNode.head) {
         headless.unshift(wordNode);
       }
+    }
+
+    function deleteFromHeadless(i) {
+      headless.splice(i, 1);
     }
   }
   
