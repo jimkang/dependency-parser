@@ -1,18 +1,15 @@
 function flipTreeHeadToChild(headBasedArray) {
-  var root;
-
   headBasedArray.forEach(convertNode);
+  var roots = headBasedArray.reduce(addRoot, []);
   headBasedArray.forEach(chopHead);
-  // console.log(JSON.stringify(root, null, '  '));
-  return root;
+  // console.log(JSON.stringify(roots, null, '  '));
+
+  return roots;
 
   function convertNode(node) {
     if (node.head) {
       addToChildren(node.head, node);
       node.directionFromHead = node.sentencePos < node.head.sentencePos ? -1 : 1;
-    }
-    else {
-      root = node;
     }
   }
 }
@@ -26,6 +23,13 @@ function addToChildren(node, child) {
 
 function chopHead(node) {
   delete node.head;
+}
+
+function addRoot(roots, node) {
+  if (!node.head) {
+    roots.push(node);
+  }
+  return roots;
 }
 
 module.exports = flipTreeHeadToChild;

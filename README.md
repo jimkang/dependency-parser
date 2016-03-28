@@ -60,39 +60,43 @@ Usage
 
 Output:
 
-    {
-      "word": "am",
-      "pos": ["verb"],
-      "sentencePos": 1,
-      "children": [
-        {
-          "word": "I",
-          "pos": ["noun"],
-          "directionFromHead": -1,
-          "sentencePos": 0
-        },
-        {
-          "word": "dog",
-          "pos": ["noun"],
-          "directionFromHead": 1,
-          "sentencePos": 4
-          "children": [
-            {
-              "word": "a",
-              "pos": ["article"],
-              "directionFromHead": -1,
-              "sentencePos": 2
-            },
-            {
-              "word": "great",
-              "pos": ["adjective"],
-              "directionFromHead": -1,
-              "sentencePos": 3
-            }
-          ]
-        }
-      ]
-    }
+    [
+      {
+        "word": "am",
+        "pos": ["verb"],
+        "sentencePos": 1,
+        "children": [
+          {
+            "word": "I",
+            "pos": ["noun"],
+            "directionFromHead": -1,
+            "sentencePos": 0
+          },
+          {
+            "word": "dog",
+            "pos": ["noun"],
+            "directionFromHead": 1,
+            "sentencePos": 4
+            "children": [
+              {
+                "word": "a",
+                "pos": ["article"],
+                "directionFromHead": -1,
+                "sentencePos": 2
+              },
+              {
+                "word": "great",
+                "pos": ["adjective"],
+                "directionFromHead": -1,
+                "sentencePos": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+The parse function returns an array of trees. If the sentence is well-formed, it should contain a single tree, but otherwise, there may be multiple trees.
 
 Algorithm
 ----------

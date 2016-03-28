@@ -73,7 +73,7 @@ var testCases = [
     name: 'Adverb cannot depend on adjective',
     posA: ['adverb'],
     posB: ['adjective'],
-    expected: false
+    expected: true
   },
   {
     name: 'Article cannot depend on adverb',
@@ -98,6 +98,30 @@ var testCases = [
     posA: ['conjunction'],
     posB: ['verb'],
     expected: false
+  },
+  {
+    name: 'Preposition can depend on verb',
+    posA: ['preposition'],
+    posB: ['verb'],
+    expected: true
+  },
+  {
+    name: 'Preposition can depend on noun',
+    posA: ['preposition'],
+    posB: ['noun'],
+    expected: true
+  },
+  {
+    name: 'Preposition can depend on adjective',
+    posA: ['preposition'],
+    posB: ['adjective'],
+    expected: true
+  },
+  {
+    name: 'Noun can depend on preposition',
+    posA: ['noun'],
+    posB: ['preposition'],
+    expected: true
   }
 ];
 

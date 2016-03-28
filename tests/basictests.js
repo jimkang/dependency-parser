@@ -29,39 +29,41 @@ var testCases = [
         "pos": ["noun"]
       }
     ],
-    expected: {
-      "word": "am",
-      "pos": ["verb"],
-      "sentencePos": 1,
-      "children": [
-        {
-          "word": "I",
-          "pos": ["noun"],
-          "directionFromHead": -1,
-          "sentencePos": 0
-        },
-        {
-          "word": "dog",
-          "pos": ["noun"],
-          "directionFromHead": 1,
-          "sentencePos": 4,
-          "children": [
-            {
-              "word": "a",
-              "pos": ["article"],
-              "directionFromHead": -1,
-              "sentencePos": 2
-            },
-            {
-              "word": "great",
-              "pos": ["adjective"],
-              "directionFromHead": -1,
-              "sentencePos": 3
-            }
-          ]
-        }
-      ]
-    }
+    expected: [
+      {
+        "word": "am",
+        "pos": ["verb"],
+        "sentencePos": 1,
+        "children": [
+          {
+            "word": "I",
+            "pos": ["noun"],
+            "directionFromHead": -1,
+            "sentencePos": 0
+          },
+          {
+            "word": "dog",
+            "pos": ["noun"],
+            "directionFromHead": 1,
+            "sentencePos": 4,
+            "children": [
+              {
+                "word": "a",
+                "pos": ["article"],
+                "directionFromHead": -1,
+                "sentencePos": 2
+              },
+              {
+                "word": "great",
+                "pos": ["adjective"],
+                "directionFromHead": -1,
+                "sentencePos": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
 
   {
@@ -154,7 +156,8 @@ var testCases = [
         "pos": ["noun"]
       }
     ],
-    expected: {}
+    expected: [
+    ]
   }
 ];
 
