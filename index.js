@@ -36,8 +36,14 @@ debugger;
           if (headlessWordNode.word === 'and') {
             debugger;
           }
-          headlessWordNode.head = wordNode;
-          headlessIndexesToDelete.push(i);
+
+          // Should this be a grammar rule?
+          if (headlessWordNode.pos !== wordNode.pos ||
+            headlessWordNode.sentencePos > wordNode.sentencePos) {
+
+            headlessWordNode.head = wordNode;
+            headlessIndexesToDelete.push(i);
+          }
         }
         else {
           break;

@@ -1,0 +1,31 @@
+body {
+  font-family: "helvetica neue";
+}
+
+.link {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node {
+  cursor: pointer;
+  fill: #ccc;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node.fixed {
+  fill: #f00;
+}
+
+.node.player-graph-node {
+  fill: hsl(110, 85%, 45%);
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.encounter-choice {
+  cursor: pointer
+}

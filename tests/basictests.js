@@ -77,7 +77,7 @@ var testCases = [
       },
       {
         "word": "as",
-        "pos": ["adverb"]
+        "pos": ["conjunction"]
       },
       {
         "word": "the",
@@ -117,7 +117,7 @@ var testCases = [
       },
       {
         "word": "as",
-        "pos": ["adverb"]
+        "pos": ["conjunction"]
       },
       {
         "word": "though",

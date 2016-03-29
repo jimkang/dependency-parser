@@ -25,6 +25,12 @@
   },
   "homepage": "https://github.com/jimkang/dependency-parser",
   "devDependencies": {
+    "accessor": "^1.0.1",
+    "csscrown": "^1.0.0",
+    "d3": "^3.5.16",
+    "d3-selection": "^0.7.0",
+    "seedrandom": "^2.4.2",
+    "smash": "0.0.15",
     "tape": "^4.5.1"
   },
   "dependencies": {
