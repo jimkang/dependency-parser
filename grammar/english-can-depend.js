@@ -14,7 +14,11 @@ function partsOfSpeechCanDependOnPartsOfSpeech(posA, posB) {
   }
 
   if (!canDepend && contains(posB, 'conjunction')) {
-    canDepend = contains(posA, 'verb');
+    canDepend = intersection(posA, ['verb', 'conjunction']).length > 0;
+  }
+
+  if (!canDepend && contains(posB, 'adverb')) {
+    canDepend = contains(posA, 'adverb');
   }
 
   if (!canDepend && contains(posB, 'preposition')) {

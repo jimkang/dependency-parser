@@ -14,10 +14,11 @@ function DependencyParser(createOpts) {
 
   function parse(sentence) {
     var headless = [];
-
+debugger;
     sentence.forEach(tagWithSentencePosition);
     sentence.forEach(sortWord);
-    console.log(JSON.stringify(sentence, null, '  '));
+    // console.log(JSON.stringify(sentence, null, '  '));
+    debugger;
     return flipTreeHeadToChild(sentence);
 
     function sortWord(wordNode, sentenceIndex) {
@@ -26,7 +27,7 @@ function DependencyParser(createOpts) {
       if (wordNode.word === 'and') {
         debugger;
       }
-
+// TODO: When pos is the same, use sentencePos to determine who's dependent on whom.
       var headlessIndexesToDelete = [];
 
       for (var i = 0; i < headless.length; ++i) {
@@ -44,7 +45,7 @@ function DependencyParser(createOpts) {
       }
 
       headlessIndexesToDelete.reverse().forEach(deleteFromHeadless);
-      console.log('headless', headless);
+      // console.log('headless', headless);
 
       var precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
       if (precedingNode) {
