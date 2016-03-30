@@ -3,24 +3,19 @@ var Graph = require('./graph');
 // var findWhere = require('lodash.findwhere');
 
 function renderGraphPane(opts) {
-  var random;
-  var nodes;
-  var links;
+  var tree;
 
   if (opts) {
-    random = opts.random;
-    nodes = opts.nodes;
-    links = opts.links;    
+    tree = opts.tree;
   }
 
   var graph = Graph({
     width: 960,
-    height: 550,
-    random: random
+    height: 960
   });
 
   graph.render();
-  graph.renderUpdate(nodes, links);
+  graph.renderUpdate(tree);
 }
 
 module.exports = renderGraphPane;

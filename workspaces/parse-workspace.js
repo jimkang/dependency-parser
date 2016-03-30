@@ -1,8 +1,5 @@
 var renderGraphPane = require('./render-graph-pane');
-var seedrandom = require('./lib/seedrandom.min.js');
 var DependencyParser = require('../index');
-
-var random = seedrandom('test');
 
 var graphData = {
   nodes: [
@@ -586,7 +583,6 @@ var parsed = parse(sentence);
 console.log(JSON.stringify(parsed, null, '  '));
 
 renderGraphPane({
-  random: random,
-  nodes: graphData.nodes,
-  links: graphData.links
+  // random: random,
+  tree: parsed[0]
 });

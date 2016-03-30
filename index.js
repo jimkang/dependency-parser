@@ -14,18 +14,18 @@ function DependencyParser(createOpts) {
 
   function parse(sentence) {
     var headless = [];
-debugger;
+// debugger;
     sentence.forEach(tagWithSentencePosition);
     sentence.forEach(sortWord);
     // console.log(JSON.stringify(sentence, null, '  '));
-    debugger;
+    // debugger;
     return flipTreeHeadToChild(sentence);
 
     function sortWord(wordNode, sentenceIndex) {
       // console.log('wordNode', wordNode);
       // wordsEncountered.unshift(wordNode);
       if (wordNode.word === 'and') {
-        debugger;
+        // debugger;
       }
 // TODO: When pos is the same, use sentencePos to determine who's dependent on whom.
       var headlessIndexesToDelete = [];
@@ -34,7 +34,7 @@ debugger;
         var headlessWordNode = headless[i];
         if (canDepend(headlessWordNode.pos, wordNode.pos)) {
           if (headlessWordNode.word === 'and') {
-            debugger;
+            // debugger;
           }
 
           // Should this be a grammar rule?

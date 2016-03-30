@@ -5,6 +5,7 @@ body {
 .link {
   stroke: #000;
   stroke-width: 1.5px;
+  fill: none;
 }
 
 .node {
