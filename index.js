@@ -1,5 +1,4 @@
 var englishCanDepend = require('./grammar/english-can-depend');
-var flipTreeHeadToChild = require('./flip-tree-head-to-child');
 
 function DependencyParser(createOpts) {
   var canDepend;
@@ -12,14 +11,21 @@ function DependencyParser(createOpts) {
     canDepend = englishCanDepend;
   }
 
-  function parse(sentence) {
+  function* parse(sentence) {
     var headless = [];
 // debugger;
     sentence.forEach(tagWithSentencePosition);
-    sentence.forEach(sortWord);
+
+    for (var i = 0; i < sentence.length; ++i) {
+      sortWord(sentence[i], i);
+      if (i < sentence.length - 1) {
+        yield sentence;
+      }
+    }
     // console.log(JSON.stringify(sentence, null, '  '));
     // debugger;
-    return flipTreeHeadToChild(sentence);
+    // return flipTreeHeadToChild(sentence);
+    return sentence;
 
     function sortWord(wordNode, sentenceIndex) {
       // console.log('wordNode', wordNode);

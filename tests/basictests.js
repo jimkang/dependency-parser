@@ -1,70 +1,71 @@
 // var test = require('tap').test;
 var test = require('tape');
 var DependencyParser = require('../index');
+var flipTreeHeadToChild = require('../flip-tree-head-to-child');
 
 var testCases = [
-  // {
-  //   name: 'I am a great dog.',
-  //   createOpts: {
-  //   },
-  //   sentence: [
-  //     {
-  //       "word": "I",
-  //       "pos": ["noun"]
-  //     },
-  //     {
-  //       "word": "am",
-  //       "pos": ["verb"]
-  //     },
-  //     {
-  //       "word": "a",
-  //       "pos": ["article"]
-  //     },
-  //     {
-  //       "word": "great",
-  //       "pos": ["adjective"]
-  //     },
-  //     {
-  //       "word": "dog",
-  //       "pos": ["noun"]
-  //     }
-  //   ],
-  //   expected: [
-  //     {
-  //       "word": "am",
-  //       "pos": ["verb"],
-  //       "sentencePos": 1,
-  //       "children": [
-  //         {
-  //           "word": "I",
-  //           "pos": ["noun"],
-  //           "directionFromHead": -1,
-  //           "sentencePos": 0
-  //         },
-  //         {
-  //           "word": "dog",
-  //           "pos": ["noun"],
-  //           "directionFromHead": 1,
-  //           "sentencePos": 4,
-  //           "children": [
-  //             {
-  //               "word": "a",
-  //               "pos": ["article"],
-  //               "directionFromHead": -1,
-  //               "sentencePos": 2
-  //             },
-  //             {
-  //               "word": "great",
-  //               "pos": ["adjective"],
-  //               "directionFromHead": -1,
-  //               "sentencePos": 3
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
+  {
+    name: 'I am a great dog.',
+    createOpts: {
+    },
+    sentence: [
+      {
+        "word": "I",
+        "pos": ["noun"]
+      },
+      {
+        "word": "am",
+        "pos": ["verb"]
+      },
+      {
+        "word": "a",
+        "pos": ["article"]
+      },
+      {
+        "word": "great",
+        "pos": ["adjective"]
+      },
+      {
+        "word": "dog",
+        "pos": ["noun"]
+      }
+    ],
+    expected: [
+      {
+        "word": "am",
+        "pos": ["verb"],
+        "sentencePos": 1,
+        "children": [
+          {
+            "word": "I",
+            "pos": ["noun"],
+            "directionFromHead": -1,
+            "sentencePos": 0
+          },
+          {
+            "word": "dog",
+            "pos": ["noun"],
+            "directionFromHead": 1,
+            "sentencePos": 4,
+            "children": [
+              {
+                "word": "a",
+                "pos": ["article"],
+                "directionFromHead": -1,
+                "sentencePos": 2
+              },
+              {
+                "word": "great",
+                "pos": ["adjective"],
+                "directionFromHead": -1,
+                "sentencePos": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
 
   {
     name: 'Do as the boffin of the necromancers commands and switch allegiances as though you were a popinjay in a chiffon chemise.',
@@ -165,11 +166,24 @@ testCases.forEach(runTest);
 
 function runTest(testCase) {
   test('Test: ' + testCase.name, function basicTest(t) {
-    var parse = DependencyParser(testCase.createOpts);
-    var parsed = parse(testCase.sentence);
+    var parseGenerator = DependencyParser(testCase.createOpts);
+    var parseIterator = parseGenerator(testCase.sentence);
     debugger;
-    console.log(JSON.stringify(parsed, null, '  '));
-    t.deepEqual(parsed, testCase.expected, 'Parse tree is correct.');
+    var parsed = runIteratorUntilDone(parseIterator);
+    var childBasedTree = flipTreeHeadToChild(parsed);
+    debugger;
+    console.log(JSON.stringify(childBasedTree, null, '  '));
+    t.deepEqual(childBasedTree, testCase.expected, 'Parse tree is correct.');
     t.end();
   });
+}
+
+function runIteratorUntilDone(iterator) {
+  var result;
+  do {
+    result = iterator.next();
+  }
+  while (!result.done);
+
+  return result.value;
 }

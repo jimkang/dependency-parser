@@ -22,6 +22,8 @@ Elements in an array passed to the parser should look like this:
 
 Where "pos" is the parts of speech. See node-pos or Wordnik about getting parts of speech for words. Any extra elements in the objects will be preserved in the output, so you can throw in metadata if you feel like it.
 
+Uses generators. *Requires Node 4+ or ES6 in the browser.*
+
 Installation
 ------------
 

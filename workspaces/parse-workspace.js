@@ -9,7 +9,7 @@ var defaultSentence = [
   },
   {
     "word": "as",
-    "pos": ["conjunction"]
+    "pos": ["adverb"]
   },
   {
     "word": "the",
@@ -49,7 +49,7 @@ var defaultSentence = [
   },
   {
     "word": "as",
-    "pos": ["conjunction"]
+    "pos": ["adverb"]
   },
   {
     "word": "though",
