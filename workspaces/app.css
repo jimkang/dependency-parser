@@ -1,5 +1,7 @@
 body {
   font-family: "helvetica neue";
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .link {
@@ -27,6 +29,11 @@ body {
   opacity: 0;
 }
 
-.encounter-choice {
-  cursor: pointer
+.form-pane {
+  flex-grow: 2;
+}
+
+.sentence-json {
+  width: 100%;
+  height: 640px;
 }

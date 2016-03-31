@@ -10,8 +10,8 @@ function renderGraphPane(opts) {
   }
 
   var graph = Graph({
-    width: 960,
-    height: 960
+    width: 750,
+    height: 750
   });
 
   graph.render();

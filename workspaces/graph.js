@@ -19,6 +19,10 @@ function setYWithDepth(d) {
   d.y = d.depth * 100;
 }
 
+function getLinkId(link) {
+  return 'link_' + link.source.sentencePos + '_' + link.target.sentencePos;
+}
+
 function Graph(createOpts) {
   var width;
   var height;
@@ -35,8 +39,10 @@ function Graph(createOpts) {
   var tree;
   var svg;
   var shiftedGroup;
-  var linksSel;
-  var nodesSel;
+  var linkRoot;
+  var circleRoot;
+  var textRoot;
+
   var marginX = 50;
   var marginY = 50;
 
@@ -52,8 +58,9 @@ function Graph(createOpts) {
       .attr('id', 'shifted-group')
       .attr('transform', 'translate(' + marginX + ', ' + marginY + ')');
 
-    linksSel = shiftedGroup.selectAll(".link");
-    nodesSel = shiftedGroup.selectAll(".node");
+    linkRoot = shiftedGroup.append('g').attr('id', 'link-root');
+    circleRoot = shiftedGroup.append('g').attr('id', 'circle-root');
+    textRoot = shiftedGroup.append('g').attr('id', 'text-root');
   }
 
   function renderUpdate(root) {
@@ -66,31 +73,45 @@ function Graph(createOpts) {
     var line = shape.line();
     line.curve(shape.curveStep);
 
-    linksSel = linksSel.data(links)
-      .enter().append('path')
-        .attr("class", "link")
-        .attr('d', getSpline);
+    var linksSel = linkRoot.selectAll(".link").data(links, getLinkId);
 
-    nodesSel = nodesSel.data(nodes);
-    var nodeEnter = nodesSel.enter();
+    linksSel.exit().remove();
 
-    nodeEnter
+    var enteredLinks = linksSel.enter().append('path')
+      .attr("class", "link");
+
+    var linksToUpdate = enteredLinks.merge(linksSel);
+    linksToUpdate.attr('d', getSpline);
+
+    var nodesSel = circleRoot.selectAll(".node").data(nodes, accessor('sentencePos'));
+    nodesSel.exit().remove();
+
+    var enteredNodes = nodesSel.enter()
       .append("circle")
         .attr('id', getId)
         .attr("class", "node")
-        .attr("r", 30)
-        .attr('cx', getX)
-        .attr('cy', getY)
+        .attr("r", 30)        
         .on("click", click);
 
-    nodeEnter.append('text')
+    var nodesToUpdate = enteredNodes.merge(nodesSel);
+
+    nodesToUpdate
+      .attr('cx', getX)
+      .attr('cy', getY);
+
+    var textSel = textRoot.selectAll('text').data(nodes, accessor('sentencePos'));
+    textSel.exit().remove();
+
+    var enteredText = textSel.enter().append('text')
+      .attr('dy', '0.3em')
+      .attr('text-anchor', 'middle');
+
+    enteredText.merge(textSel)
       .attr('x', function(d) { 
         return d.children || d._children ? '0.3em' : '-0.3em'; 
       })
       .attr('x', getX)
       .attr('y', getY)
-      .attr('dy', '0.3em')
-      .attr('text-anchor', 'middle')
       .text(accessor('word'));
 
     function getSpline(d) {
