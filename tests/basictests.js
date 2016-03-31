@@ -2,6 +2,7 @@
 var test = require('tape');
 var DependencyParser = require('../index');
 var flipTreeHeadToChild = require('../flip-tree-head-to-child');
+var runIteratorUntilDone = require('./fixtures/run-until-done');
 
 var testCases = [
   {
@@ -176,14 +177,4 @@ function runTest(testCase) {
     t.deepEqual(childBasedTree, testCase.expected, 'Parse tree is correct.');
     t.end();
   });
-}
-
-function runIteratorUntilDone(iterator) {
-  var result;
-  do {
-    result = iterator.next();
-  }
-  while (!result.done);
-
-  return result.value;
 }
