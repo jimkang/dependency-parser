@@ -97,9 +97,11 @@ var parseGenerator = DependencyParser();
 var parseIterator;
 
 renderFormPane({
+  sentenceText: 'Do as the boffin of the necromancers commands and switch allegiances as though you were a popinjay in a chiffon chemise.',
   sentenceJSONText: defaultSentenceText,
   onParse: updateGraph,
-  onStepParse: stepForward
+  onStepParse: stepForward,
+  onConvertSentenceToJSON: function () {}
 });
 
 var graph = Graph({

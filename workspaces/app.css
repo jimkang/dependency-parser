@@ -31,9 +31,33 @@ body {
 
 .form-pane {
   flex-grow: 2;
+  width: 40%;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sentence-text {
+  width: 100%;
+  height: 2em;
+}
+
+.sentence-to-json {
+  width: 100%;
+  height: 2em;
 }
 
 .sentence-json {
   width: 50%;
-  height: 640px;
+  height: 900px;
+}
+
+.parse-button {
+  width: 10em;
+  height: 2em;
+}
+
+.step-button {
+  width: 10em;
+  height: 2em;
 }
