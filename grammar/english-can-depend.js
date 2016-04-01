@@ -6,7 +6,7 @@ function partsOfSpeechCanDependOnPartsOfSpeech(posA, posB) {
     intersection(posA, ['noun', 'adverb', 'preposition']).length > 0;
 
   if (!canDepend && contains(posB, 'noun')) {
-    canDepend = intersection(posA, ['adjective', 'article', 'noun', 'preposition']).length > 0;
+    canDepend = intersection(posA, ['adjective', 'article', 'noun']).length > 0;
   }
 
   if (!canDepend && contains(posB, 'adjective')) {

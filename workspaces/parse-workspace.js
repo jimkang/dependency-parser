@@ -12,7 +12,7 @@ var defaultSentence = [
   },
   {
     "word": "as",
-    "pos": ["adverb"]
+    "pos": ["conjunction"]
   },
   {
     "word": "the",
@@ -52,11 +52,11 @@ var defaultSentence = [
   },
   {
     "word": "as",
-    "pos": ["adverb"]
+    "pos": ["conjunction"]
   },
   {
     "word": "though",
-    "pos": ["adverb"]
+    "pos": ["conjunction"]
   },
   {
     "word": "you",
@@ -104,7 +104,7 @@ renderFormPane({
 
 var graph = Graph({
   width: 750,
-  height: 750
+  height: 1000
 });
 
 graph.render();
@@ -129,7 +129,8 @@ function stepForward(sentenceJSONText) {
 
 function stepParsingForward(sentenceJSONText) {
   if (!parseIterator) {
-    parseIterator = parseGenerator(JSON.parse(sentenceJSONText));
+    var sentenceArray = JSON.parse(sentenceJSONText);
+    parseIterator = parseGenerator(sentenceArray);
     console.log('Starting new sentence parsing iterator.');
   }
 

@@ -112,4 +112,8 @@ function isDependent(wordNode, potentialHead) {
   return false;
 }
 
+function nodeHasLessThanTwoChildren(node) {
+  return !node.children || node.children.length < 2;
+}
+
 module.exports = DependencyParser;
