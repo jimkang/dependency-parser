@@ -4,6 +4,15 @@ var DependencyParser = require('../index');
 var flipTreeHeadToChild = require('../flip-tree-head-to-child');
 var runIteratorUntilDone = require('../tests/fixtures/run-until-done');
 var cloneDeep = require('lodash.clonedeep');
+var createWordnok = require('wordnok').createWordnok;
+var config = require('./config');
+var sb = require('standard-bail')({
+  log: console.log
+});
+
+var wordnok = createWordnok({
+  apiKey: config.wordnikAPIKey
+});
 
 var defaultSentence = [
   {
@@ -96,12 +105,12 @@ var defaultSentenceText = JSON.stringify(defaultSentence, null, '  ');
 var parseGenerator = DependencyParser();
 var parseIterator;
 
-renderFormPane({
+var renderedForm = renderFormPane({
   sentenceText: 'Do as the boffin of the necromancers commands and switch allegiances as though you were a popinjay in a chiffon chemise.',
   sentenceJSONText: defaultSentenceText,
   onParse: updateGraph,
   onStepParse: stepForward,
-  onConvertSentenceToJSON: function () {}
+  onConvertSentenceToJSON: runConversionToJSON
 });
 
 var graph = Graph({
@@ -164,4 +173,32 @@ function stepParsingForward(sentenceJSONText) {
     done: result.done,
     tree: renderRoot
   };
+}
+
+function runConversionToJSON(text) {
+  var words = splitToWords(text);
+  wordnok.getPartsOfSpeechForMultipleWords(
+    words, sb(setJsonFieldWithPartsOfSpeech)
+  );
+
+  function setJsonFieldWithPartsOfSpeech(parts) {
+    var sentenceArray = parts.map(combinePOSAndWord);
+    renderedForm.setJsonField(JSON.stringify(sentenceArray, null, '  '));
+  }
+
+  function combinePOSAndWord(pos, i) {
+    var unit = {
+      word: words[i],
+      pos: pos
+    };
+
+    if (unit.word === 'a') {
+      unit.pos = ['indefinite-article'];
+    }
+    return unit;
+  }
+}
+
+function splitToWords(sentenceText) {
+  return sentenceText.toLowerCase().split(/[ ":.,;!?#]/).filter((s) => s.length > 0);
 }

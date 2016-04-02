@@ -24,7 +24,7 @@ function renderFormPane(opts) {
   var textToJSONButton = pane.append('button')
     .text('Sentence to JSON!')
     .classed('sentence-to-json', true)
-    .on('click', onConvertSentenceToJSON);
+    .on('click', sendSentenceToConvert);
     
   var sentenceJSONField = pane.append('textarea')
     .classed('sentence-json', true)
@@ -43,6 +43,18 @@ function renderFormPane(opts) {
   function sendSentenceJSONToStep() {
     onStepParse(sentenceJSONField.node().value);
   }
+
+  function sendSentenceToConvert() {
+    onConvertSentenceToJSON(sentenceTextField.node().value);
+  }
+
+  function setJsonField(text) {
+    sentenceJSONField.text(text);
+  }
+
+  return {
+    setJsonField: setJsonField
+  };
 }
 
 module.exports = renderFormPane;

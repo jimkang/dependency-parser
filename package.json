@@ -34,7 +34,9 @@
     "d3-shape": "^0.6.0",
     "seedrandom": "^2.4.2",
     "smash": "0.0.15",
-    "tape": "^4.5.1"
+    "standard-bail": "^2.0.0",
+    "tape": "^4.5.1",
+    "wordnok": "^3.1.0"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.3.2",

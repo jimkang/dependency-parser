@@ -1,20 +1,25 @@
 var contains = require('lodash.contains');
 var intersection = require('lodash.intersection');
 
+var verbFam = ['verb', 'verb-transitive', 'verb-intransitive'];
+var articleFam = ['definite-article', 'indefinite-article', 'article'];
+var nounFam = ['noun', 'pronoun'];
+
+// TODO: POS priority
 function partsOfSpeechCanDependOnPartsOfSpeech(posA, posB) {
-  var canDepend = contains(posB, 'verb') &&
-    intersection(posA, ['noun', 'adverb', 'preposition']).length > 0;
+  var canDepend = overlaps(posB, verbFam) &&
+    overlaps(posA, nounFam.concat(['adverb', 'preposition']));
 
   if (!canDepend && contains(posB, 'noun')) {
-    canDepend = intersection(posA, ['adjective', 'article', 'noun']).length > 0;
+    canDepend = overlaps(posA, nounFam.concat(articleFam).concat(['adjective']));
   }
 
   if (!canDepend && contains(posB, 'adjective')) {
-    canDepend = intersection(posA, ['preposition', 'adverb']).length > 0;
+    canDepend = overlaps(posA, ['preposition', 'adverb']);
   }
 
   if (!canDepend && contains(posB, 'conjunction')) {
-    canDepend = intersection(posA, ['verb', 'conjunction']).length > 0;
+    canDepend = overlaps(posA, verbFam.concat(['conjunction']));
   }
 
   if (!canDepend && contains(posB, 'adverb')) {
@@ -22,10 +27,14 @@ function partsOfSpeechCanDependOnPartsOfSpeech(posA, posB) {
   }
 
   if (!canDepend && contains(posB, 'preposition')) {
-    canDepend = contains(posA, 'noun');
+    canDepend = contains(posA, nounFam);
   }
 
   return canDepend;
+}
+
+function overlaps(listA, listB) {
+  return intersection(listA, listB).length > 0;
 }
 
 module.exports  = partsOfSpeechCanDependOnPartsOfSpeech;
