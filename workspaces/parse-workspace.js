@@ -16,88 +16,159 @@ var wordnok = createWordnok({
 
 var defaultSentence = [
   {
-    "word": "Do",
-    "pos": ["verb"]
+    "word": "do",
+    "pos": [
+      "verb-transitive",
+      "verb-intransitive",
+      "auxiliary-verb",
+      "noun",
+      "phrasal-verb",
+      "idiom"
+    ]
   },
   {
     "word": "as",
-    "pos": ["conjunction"]
+    "pos": [
+      "adverb",
+      "conjunction",
+      "pronoun",
+      "preposition",
+      "idiom",
+      "noun"
+    ]
   },
   {
     "word": "the",
-    "pos": ["article"]
+    "pos": [
+      "definite-article",
+      "adverb"
+    ]
   },
   {
     "word": "boffin",
-    "pos": ["noun"]
+    "pos": [
+      "noun"
+    ]
   },
   {
     "word": "of",
-    "pos": ["preposition"]
+    "pos": [
+      "preposition"
+    ]
   },
   {
     "word": "the",
-    "pos": ["article"]
+    "pos": [
+      "definite-article",
+      "adverb"
+    ]
   },
   {
     "word": "necromancers",
-    "pos": ["noun"]
+    "pos": [
+      "noun"
+    ]
   },
   {
     "word": "commands",
-    "pos": ["verb"]
+    "pos": [
+      "verb",
+      "noun"
+    ]
   },
   {
     "word": "and",
-    "pos": ["conjunction"]
+    "pos": [
+      "conjunction",
+      "idiom"
+    ]
   },
   {
     "word": "switch",
-    "pos": ["verb"]
+    "pos": [
+      "noun",
+      "verb-transitive",
+      "verb-intransitive",
+      "phrasal-verb"
+    ]
   },
   {
     "word": "allegiances",
-    "pos": ["noun"]
+    "pos": [
+      "noun"
+    ]
   },
   {
     "word": "as",
-    "pos": ["conjunction"]
+    "pos": [
+      "adverb",
+      "conjunction",
+      "pronoun",
+      "preposition",
+      "idiom",
+      "noun"
+    ]
   },
   {
     "word": "though",
-    "pos": ["conjunction"]
+    "pos": [
+      "conjunction",
+      "adverb"
+    ]
   },
   {
     "word": "you",
-    "pos": ["noun"]
+    "pos": [
+      "pronoun"
+    ]
   },
   {
     "word": "were",
-    "pos": ["verb"]
+    "pos": [
+      "verb"
+    ]
   },
   {
     "word": "a",
-    "pos": ["article"]
+    "pos": [
+      "indefinite-article"
+    ]
   },
   {
     "word": "popinjay",
-    "pos": ["noun"]
+    "pos": [
+      "noun"
+    ]
   },
   {
     "word": "in",
-    "pos": ["preposition"]
+    "pos": [
+      "preposition",
+      "adverb",
+      "adjective",
+      "noun",
+      "idiom",
+      "abbreviation"
+    ]
   },
   {
     "word": "a",
-    "pos": ["article"]
+    "pos": [
+      "indefinite-article"
+    ]
   },
   {
     "word": "chiffon",
-    "pos": ["adjective"]
+    "pos": [
+      "noun",
+      "adjective"
+    ]
   },
   {
     "word": "chemise",
-    "pos": ["noun"]
+    "pos": [
+      "noun"
+    ]
   }
 ];
 

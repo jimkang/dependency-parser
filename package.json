@@ -36,12 +36,13 @@
     "smash": "0.0.15",
     "standard-bail": "^2.0.0",
     "tape": "^4.5.1",
-    "wordnok": "^3.1.0"
+    "wordnok": "^3.2.0"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.3.2",
     "lodash.contains": "^2.4.3",
     "lodash.intersection": "^4.1.1",
+    "lodash.without": "^4.1.2",
     "tap": "^5.7.0"
   }
 }
