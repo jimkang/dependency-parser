@@ -19,13 +19,19 @@ function DependencyParser(createOpts) {
     for (var i = 0; i < sentence.length; ++i) {
       sortWord(sentence[i], i);
       if (i < sentence.length - 1) {
-        yield sentence;
+        yield {
+          sentence: sentence,
+          headless: headless
+        };
       }
     }
     // console.log(JSON.stringify(sentence, null, '  '));
     // debugger;
     // return flipTreeHeadToChild(sentence);
-    return sentence;
+    return {
+      sentence: sentence,
+      headless: headless
+    };
 
     function sortWord(wordNode, sentenceIndex) {
       // console.log('wordNode', wordNode);

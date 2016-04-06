@@ -25,16 +25,27 @@ function renderFormPane(opts) {
     .text('Sentence to JSON!')
     .classed('sentence-to-json', true)
     .on('click', sendSentenceToConvert);
-    
-  var sentenceJSONField = pane.append('textarea')
-    .classed('sentence-json', true)
-    .text(sentenceJSONText);
 
   var parseButton = pane.append('button').classed('parse-button', true).text('Parse!');
   parseButton.on('click', sendSentenceJSON);
 
   var stepButton = pane.append('button').classed('step-button', true).text('Step!');
   stepButton.on('click', sendSentenceJSONToStep);
+
+  var sentenceJSONField = pane.append('textarea')
+    .classed('sentence-json', true)
+    .text(sentenceJSONText);
+
+  var headlessSection = pane.append('section')
+    .classed('headless-section', true);
+
+  var headlessLabel = headlessSection.append('span')
+    .classed('headless-label', true)
+    .text('Currently headless nodes');
+
+  var headlessField = headlessSection.append('textarea')
+    .classed('current-headless-json', true)
+    // .text(sentenceJSONText);
 
   function sendSentenceJSON() {
     onParse(sentenceJSONField.node().value);
@@ -48,12 +59,17 @@ function renderFormPane(opts) {
     onConvertSentenceToJSON(sentenceTextField.node().value);
   }
 
-  function setJsonField(text) {
+  function setSentenceJsonField(text) {
     sentenceJSONField.text(text);
   }
 
+  function setHeadlessField(text) {
+    headlessField.text(text);
+  }
+
   return {
-    setJsonField: setJsonField
+    setSentenceJsonField: setSentenceJsonField,
+    setHeadlessField: setHeadlessField
   };
 }
 

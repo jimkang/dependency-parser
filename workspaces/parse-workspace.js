@@ -206,7 +206,9 @@ function updateGraph(sentenceJSONText) {
 }
 
 function stepForward(sentenceJSONText) {
-  graph.renderUpdate(stepParsingForward(sentenceJSONText).tree);
+  var stepResult = stepParsingForward(sentenceJSONText);
+  graph.renderUpdate(stepResult.tree);
+  renderedForm.setHeadlessField(JSON.stringify(stepResult.headlessList, null, '  '));
 }
 
 function stepParsingForward(sentenceJSONText) {
@@ -221,7 +223,8 @@ function stepParsingForward(sentenceJSONText) {
 
   // Be careful to not mess with the existing result.value, since work needs
   // to be done on it in future iterations.
-  var roots = flipTreeHeadToChild(cloneDeep(result.value));
+  var roots = flipTreeHeadToChild(cloneDeep(result.value.sentence));
+  console.log(result.value.headless);
 
   if (roots.length < 1) {
     console.log('No roots parsed!');
@@ -242,7 +245,8 @@ function stepParsingForward(sentenceJSONText) {
 
   return {
     done: result.done,
-    tree: renderRoot
+    tree: renderRoot,
+    headlessList: result.value.headless
   };
 }
 
@@ -254,7 +258,7 @@ function runConversionToJSON(text) {
 
   function setJsonFieldWithPartsOfSpeech(parts) {
     var sentenceArray = parts.map(combinePOSAndWord);
-    renderedForm.setJsonField(JSON.stringify(sentenceArray, null, '  '));
+    renderedForm.setSentenceJsonField(JSON.stringify(sentenceArray, null, '  '));
   }
 
   function combinePOSAndWord(pos, i) {

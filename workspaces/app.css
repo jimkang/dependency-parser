@@ -52,12 +52,20 @@ body {
   height: 900px;
 }
 
+.headless-section {
+  width: 40%;
+}
+
+.current-headless-json {
+  height: 100%;
+}
+
 .parse-button {
-  width: 10em;
+  width: 50%;
   height: 2em;
 }
 
 .step-button {
-  width: 10em;
+  width: 50%;
   height: 2em;
 }
