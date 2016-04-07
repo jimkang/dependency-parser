@@ -42,8 +42,8 @@ function overlaps(listA, listB) {
 }
 
 function resolveAmbiguities(partsList) {
-  if (contains(partsList, 'conjunction') && contains(partsList, 'adverb')) {
-    return without(partsList, 'adverb');s
+  if (contains(partsList, 'conjunction')) {
+    return ['conjunction'];
   }
   return partsList;
 }
