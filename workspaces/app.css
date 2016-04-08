@@ -43,7 +43,12 @@ body {
 }
 
 .sentence-to-json {
-  width: 100%;
+  width: 50%;
+  height: 2em;
+}
+
+.disambiguate-button {
+width: 50%;
   height: 2em;
 }
 

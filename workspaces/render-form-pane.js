@@ -13,6 +13,7 @@ function renderFormPane(opts) {
     onParse = opts.onParse;
     onStepParse = opts.onStepParse;
     onConvertSentenceToJSON = opts.onConvertSentenceToJSON;
+    onDisambiguate = opts.onDisambiguate;
   }
 
   var pane = d3.select('body').append('div').classed('form-pane', true);
@@ -25,6 +26,11 @@ function renderFormPane(opts) {
     .text('Sentence to JSON!')
     .classed('sentence-to-json', true)
     .on('click', sendSentenceToConvert);
+
+  var disambiguateButton = pane.append('button')
+    .text('Disambiguate parts of speech!')
+    .classed('disambiguate-button', true)
+    .on('click', sendSentenceToBeDisambiguated);
 
   var parseButton = pane.append('button').classed('parse-button', true).text('Parse!');
   parseButton.on('click', sendSentenceJSON);
@@ -57,6 +63,10 @@ function renderFormPane(opts) {
 
   function sendSentenceToConvert() {
     onConvertSentenceToJSON(sentenceTextField.node().value);
+  }
+
+  function sendSentenceToBeDisambiguated() {
+    onDisambiguate(sentenceJSONField.text());
   }
 
   function setSentenceJsonField(text) {

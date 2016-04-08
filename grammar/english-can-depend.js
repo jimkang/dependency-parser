@@ -1,6 +1,5 @@
 var contains = require('lodash.contains');
 var intersection = require('lodash.intersection');
-var without = require('lodash.without');
 
 var verbFam = ['verb', 'verb-transitive', 'verb-intransitive'];
 var articleFam = ['definite-article', 'indefinite-article', 'article'];

@@ -9,6 +9,7 @@ var config = require('./config');
 var sb = require('standard-bail')({
   log: console.log
 });
+var disambiguatePOS = require('../disambiguate-pos');
 
 var wordnok = createWordnok({
   apiKey: config.wordnikAPIKey
@@ -181,7 +182,8 @@ var renderedForm = renderFormPane({
   sentenceJSONText: defaultSentenceText,
   onParse: updateGraph,
   onStepParse: stepForward,
-  onConvertSentenceToJSON: runConversionToJSON
+  onConvertSentenceToJSON: runConversionToJSON,
+  onDisambiguate: updateWithDisambiguation
 });
 
 var graph = Graph({
@@ -272,6 +274,12 @@ function runConversionToJSON(text) {
     }
     return unit;
   }
+}
+
+function updateWithDisambiguation(text) {
+  var wordNodes = JSON.parse(text);
+  disambiguatePOS(wordNodes, 'pos');
+  renderedForm.setSentenceJsonField(JSON.stringify(wordNodes, null, '  '));
 }
 
 function splitToWords(sentenceText) {
