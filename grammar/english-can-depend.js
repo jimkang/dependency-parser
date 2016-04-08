@@ -6,31 +6,39 @@ var articleFam = ['definite-article', 'indefinite-article', 'article'];
 var nounFam = ['noun', 'pronoun'];
 
 // TODO: POS priority
-function partsOfSpeechCanDependOnPartsOfSpeech(a, b) {
-  var posA = resolveAmbiguities(a);
-  var posB = resolveAmbiguities(b);
+function canDepend(opts) {
+  var dependent;
+  var head;
 
-  var canDepend = overlaps(posB, verbFam) &&
-    overlaps(posA, nounFam.concat(['adverb', 'preposition']));
-
-  if (!canDepend && overlaps(posB, nounFam)) {
-    canDepend = overlaps(posA, nounFam.concat(articleFam).concat(['adjective']));
+  if (opts) {
+    dependent = opts.dependent;
+    head = opts.head;
   }
 
-  if (!canDepend && contains(posB, 'adjective')) {
-    canDepend = overlaps(posA, ['preposition', 'adverb']);
+  var posDependent = resolveAmbiguities(dependent.pos);
+  var posHead = resolveAmbiguities(head.pos);
+
+  var canDepend = overlaps(posHead, verbFam) &&
+    overlaps(posDependent, nounFam.concat(['adverb', 'preposition']));
+
+  if (!canDepend && overlaps(posHead, nounFam)) {
+    canDepend = overlaps(posDependent, nounFam.concat(articleFam).concat(['adjective']));
   }
 
-  if (!canDepend && contains(posB, 'conjunction')) {
-    canDepend = overlaps(posA, verbFam.concat(['conjunction']));
+  if (!canDepend && contains(posHead, 'adjective')) {
+    canDepend = overlaps(posDependent, ['preposition', 'adverb']);
   }
 
-  if (!canDepend && contains(posB, 'adverb')) {
-    canDepend = contains(posA, 'adverb');
+  if (!canDepend && contains(posHead, 'conjunction')) {
+    canDepend = overlaps(posDependent, verbFam.concat(['conjunction']));
   }
 
-  if (!canDepend && contains(posB, 'preposition')) {
-    canDepend = contains(posA, nounFam);
+  if (!canDepend && contains(posHead, 'adverb')) {
+    canDepend = contains(posDependent, 'adverb');
+  }
+
+  if (!canDepend && contains(posHead, 'preposition')) {
+    canDepend = contains(posDependent, nounFam);
   }
 
   return canDepend;
@@ -47,4 +55,4 @@ function resolveAmbiguities(partsList) {
   return partsList;
 }
 
-module.exports  = partsOfSpeechCanDependOnPartsOfSpeech;
+module.exports  = canDepend;

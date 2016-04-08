@@ -44,7 +44,12 @@ function DependencyParser(createOpts) {
 
       for (var i = 0; i < headless.length; ++i) {
         var headlessWordNode = headless[i];
-        if (canDepend(headlessWordNode.pos, wordNode.pos)) {
+        var headlessCanDependOnCurrent = canDepend({
+          dependent: headlessWordNode,
+          head: wordNode
+        });
+
+        if (headlessCanDependOnCurrent) {
           if (headlessWordNode.word === 'and') {
             // debugger;
           }
@@ -68,7 +73,12 @@ function DependencyParser(createOpts) {
       var precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
       if (precedingNode) {
         do {
-          if (canDepend(wordNode.pos, precedingNode.pos)) {
+          var currentCanDependOnPreceding = canDepend({
+            dependent: wordNode,
+            head: precedingNode
+          });
+
+          if (currentCanDependOnPreceding) {
             wordNode.head = precedingNode;
             break;
           }
