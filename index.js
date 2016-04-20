@@ -41,12 +41,19 @@ function DependencyParser(createOpts) {
       }
 // TODO: When pos is the same, use sentencePos to determine who's dependent on whom.
       var headlessIndexesToDelete = [];
+      var precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
+      var nextNode;
+      if (sentenceIndex < sentence.length - 1) {
+        nextNode = sentence[sentenceIndex + 1];
+      }
 
       for (var i = 0; i < headless.length; ++i) {
         var headlessWordNode = headless[i];
         var headlessCanDependOnCurrent = canDepend({
           dependent: headlessWordNode,
-          head: wordNode
+          head: wordNode,
+          prev: precedingNode,
+          next: nextNode
         });
 
         if (headlessCanDependOnCurrent) {

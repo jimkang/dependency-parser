@@ -192,12 +192,9 @@ var graph = Graph({
 });
 
 graph.render();
-updateGraph(defaultSentenceText);
+updateGraph(updateWithDisambiguation(defaultSentenceText));
 
 function updateGraph(sentenceJSONText) {
-  // var sentenceArray = JSON.parse(sentenceJSONText);
-  // var parsed = parse(sentenceArray);
-  // graph.renderUpdate(parsed[0]);
   var result;
   do {
     result = stepParsingForward(sentenceJSONText);
@@ -279,7 +276,9 @@ function runConversionToJSON(text) {
 function updateWithDisambiguation(text) {
   var wordNodes = JSON.parse(text);
   disambiguatePOS(wordNodes, 'pos');
-  renderedForm.setSentenceJsonField(JSON.stringify(wordNodes, null, '  '));
+  var disambiguated = JSON.stringify(wordNodes, null, '  ')
+  renderedForm.setSentenceJsonField(disambiguated);
+  return disambiguated;
 }
 
 function splitToWords(sentenceText) {

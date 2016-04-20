@@ -8,7 +8,7 @@ function disambiguatePOS(wordNodes) {
 
   for (var i = 0; i < wordNodes.length; ++i) {
     if (i > 0) {
-      preceding = wordNodes[i - 1].pos;        
+      preceding = wordNodes[i - 1].pos;
     }
     else {
       preceding = null;
@@ -41,6 +41,10 @@ function disambiguatePartsOfSpeechInCurrent(preceding, current, following) {
     if (contains(current, 'noun') && contains(following, 'noun')) {
       current = without(current, 'noun');
     }
+  }
+  else {
+    // The first POS for a word from Wordnik is usually the most common one.
+    current = current.slice(0, 1);
   }
 
   return current;
