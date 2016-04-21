@@ -44,7 +44,7 @@ function canDepend(opts) {
   }
 
   if (!canDepend && contains(posHead, 'preposition')) {
-    canDepend = contains(posDependent, nounFam);
+    canDepend = overlaps(posDependent, nounFam);
   }
 
   return canDepend;
