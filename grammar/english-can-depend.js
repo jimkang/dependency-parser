@@ -1,7 +1,5 @@
 var contains = require('lodash.contains');
 var intersection = require('lodash.intersection');
-var applyPOSDependenceRule = require('./english-apply-pos-dependence-rule');
-var rules = require('./english-pos-dependence-rules');
 
 var verbFam = ['verb', 'verb-transitive', 'verb-intransitive'];
 var articleFam = ['definite-article', 'indefinite-article', 'article'];
