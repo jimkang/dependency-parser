@@ -26,7 +26,7 @@ function canDepend(opts) {
     overlaps(posDependent, nounFam.concat(['adverb', 'preposition']));
 
   if (!canDepend && overlaps(posHead, nounFam)) {
-    canDepend = overlaps(posDependent, nounFam.concat(articleFam).concat(['adjective']));
+    canDepend = overlaps(posDependent, articleFam.concat(['adjective']));
   }
 
   if (!canDepend && contains(posHead, 'adjective')) {
@@ -34,7 +34,7 @@ function canDepend(opts) {
   }
 
   if (!canDepend && contains(posHead, 'conjunction')) {
-    canDepend = overlaps(posDependent, verbFam.concat(['conjunction']));
+    canDepend = overlaps(posDependent, verbFam.concat(['conjunction', 'preposition']));
   }
 
   if (!canDepend && contains(posHead, 'adverb')) {
@@ -42,7 +42,7 @@ function canDepend(opts) {
   }
 
   if (!canDepend && contains(posHead, 'preposition')) {
-    canDepend = overlaps(posDependent, nounFam);
+    canDepend = overlaps(posDependent, nounFam.concat(verbFam));
   }
 
   return canDepend;

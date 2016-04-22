@@ -101,10 +101,13 @@ function DependencyParser(createOpts) {
           });
 
           if (currentCanDependOnPreceding) {
-            if (childCountsForHeads[precedingNode.sentencePos] > 1) {
-              debugger;
-              // precedingNode already has two children.
-              // TODO: Can wordNode replace preceding node, then?
+            // If precedingNode already has two children, can wordNode replace preceding node?
+            if (childCountsForHeads[precedingNode.sentencePos] > 1 &&
+              canSwap(precedingNode, wordNode)) {
+
+              wordNode.head = precedingNode.head;
+              precedingNode.head = wordNode;
+              incrementChildCountForNode(wordNode);
             }
             else {
               wordNode.head = precedingNode;
@@ -128,6 +131,20 @@ function DependencyParser(createOpts) {
   }
   
   return parse;
+
+  // Can inTreeNode's head be potentialReplacementNode's head?
+  // And can potentialReplacementNode be inTreeNode's head?
+  function canSwap(inTreeNode, potentialReplacementNode) {
+    return inTreeNode.head &&
+      canDepend({
+        dependent: potentialReplacementNode,
+        head: inTreeNode.head
+      }) &&
+      canDepend({
+        dependent: inTreeNode,
+        head: potentialReplacementNode
+      });
+  }
 }
 
 function getPreviousWordThatIsNotADependent(index, sentence) {
