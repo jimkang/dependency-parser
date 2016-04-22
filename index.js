@@ -13,7 +13,17 @@ function DependencyParser(createOpts) {
 
   function* parse(sentence) {
     var headless = [];
-// debugger;
+    var childCountsForHeads = {};
+
+    function incrementChildCountForNode(node) {
+      var count = childCountsForHeads[node.sentencePos];
+      if (count === undefined) {
+        count = 0;
+      }
+      count += 1;
+      childCountsForHeads[node.sentencePos] = count;
+    }
+
     sentence.forEach(tagWithSentencePosition);
 
     for (var i = 0; i < sentence.length; ++i) {
@@ -65,7 +75,12 @@ function DependencyParser(createOpts) {
           if (headlessWordNode.pos !== wordNode.pos ||
             headlessWordNode.sentencePos > wordNode.sentencePos) {
 
+            // if (childCountsForHeads[wordNode.sentencePos] > 1) {
+            //   debugger;
+            // }
             headlessWordNode.head = wordNode;
+            incrementChildCountForNode(wordNode);
+
             headlessIndexesToDelete.push(i);
           }
         }
@@ -86,7 +101,16 @@ function DependencyParser(createOpts) {
           });
 
           if (currentCanDependOnPreceding) {
-            wordNode.head = precedingNode;
+            if (childCountsForHeads[precedingNode.sentencePos] > 1) {
+              debugger;
+              // precedingNode already has two children.
+              // TODO: Can wordNode replace preceding node, then?
+            }
+            else {
+              wordNode.head = precedingNode;
+              incrementChildCountForNode(precedingNode);
+            }
+
             break;
           }
         }
