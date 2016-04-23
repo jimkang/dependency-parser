@@ -52,13 +52,4 @@ function overlaps(listA, listB) {
   return intersection(listA, listB).length > 0;
 }
 
-// function resolveAmbiguities(partsList) {
-//   if (contains(partsList, 'conjunction')) {
-//     return ['conjunction'];
-//   }
-//   else {
-//     return partsList.slice(0, 1)
-//   }
-// }
-
 module.exports  = canDepend;

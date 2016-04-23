@@ -4,10 +4,10 @@ var canDepend = require('../grammar/english-can-depend');
 
 var testCases = [
   {
-    name: 'Verb can depend on verb',
+    name: 'Verb cannot depend on verb',
     posA: ['verb'],
     posB: ['verb'],
-    expected: true
+    expected: false
   },
   {
     name: 'Noun can depend on verb',
@@ -64,10 +64,10 @@ var testCases = [
     expected: false
   },
   {
-    name: 'Noun can depend on noun',
+    name: 'Noun cannot depend on noun',
     posA: ['noun'],
     posB: ['noun'],
-    expected: true
+    expected: false
   },
   {
     name: 'Article cannot depend on adjective',
@@ -118,16 +118,16 @@ var testCases = [
     expected: true
   },
   {
-    name: 'Preposition can depend on noun',
+    name: 'Preposition cannot depend on noun',
     posA: ['preposition'],
     posB: ['noun'],
-    expected: true
+    expected: false
   },
   {
-    name: 'Preposition can depend on adjective',
+    name: 'Preposition cannot depend on adjective',
     posA: ['preposition'],
     posB: ['adjective'],
-    expected: true
+    expected: false
   },
   {
     name: 'Noun can depend on preposition',
@@ -144,7 +144,14 @@ function runTest(testCase) {
 
   function basicTest(t) {
     t.equal(
-      canDepend(testCase.posA, testCase.posB),
+      canDepend({
+        dependent: {
+          pos: testCase.posA
+        },
+        head: {
+          pos: testCase.posB
+        }
+      }),
       testCase.expected,
       'Finding is correct.'
     );
