@@ -3,6 +3,7 @@ var test = require('tape');
 var DependencyParser = require('../index');
 var flipTreeHeadToChild = require('../flip-tree-head-to-child');
 var runIteratorUntilDone = require('./fixtures/run-until-done');
+var disambiguatePOS = require('../disambiguate-pos');
 
 var testCases = [
   {
@@ -11,61 +12,87 @@ var testCases = [
     },
     sentence: [
       {
-        "word": "I",
-        "pos": ["noun"]
+        "word": "i",
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "am",
-        "pos": ["verb"]
+        "pos": [
+          "verb"
+        ]
       },
       {
         "word": "a",
-        "pos": ["article"]
+        "pos": [
+          "indefinite-article"
+        ]
       },
       {
         "word": "great",
-        "pos": ["adjective"]
+        "pos": [
+          "adjective",
+          "noun",
+          "adverb"
+        ]
       },
       {
         "word": "dog",
-        "pos": ["noun"]
+        "pos": [
+          "noun",
+          "adverb",
+          "verb-transitive",
+          "idiom"
+        ]
       }
     ],
     expected: [
       {
         "word": "am",
-        "pos": ["verb"],
+        "pos": [
+          "verb"
+        ],
         "sentencePos": 1,
         "children": [
           {
-            "word": "I",
-            "pos": ["noun"],
-            "directionFromHead": -1,
-            "sentencePos": 0
+            "word": "i",
+            "pos": [
+              "noun"
+            ],
+            "sentencePos": 0,
+            "directionFromHead": -1
           },
           {
             "word": "dog",
-            "pos": ["noun"],
-            "directionFromHead": 1,
+            "pos": [
+              "noun"
+            ],
             "sentencePos": 4,
             "children": [
               {
                 "word": "a",
-                "pos": ["article"],
-                "directionFromHead": -1,
-                "sentencePos": 2
+                "pos": [
+                  "indefinite-article"
+                ],
+                "sentencePos": 2,
+                "directionFromHead": -1
               },
               {
                 "word": "great",
-                "pos": ["adjective"],
-                "directionFromHead": -1,
-                "sentencePos": 3
+                "pos": [
+                  "adjective",
+                  "adverb"
+                ],
+                "sentencePos": 3,
+                "directionFromHead": -1
               }
-            ]
+            ],
+            "directionFromHead": 1
           }
         ]
-      }
-    ]
+      }    
+    ]    
   },
 
   {
@@ -74,91 +101,364 @@ var testCases = [
     },
     sentence: [
       {
-        "word": "Do",
-        "pos": ["verb"]
+        "word": "do",
+        "pos": [
+          "verb-transitive",
+          "verb-intransitive",
+          "auxiliary-verb",
+          "noun",
+          "phrasal-verb",
+          "idiom"
+        ]
       },
       {
         "word": "as",
-        "pos": ["conjunction"]
+        "pos": [
+          "adverb",
+          "conjunction",
+          "pronoun",
+          "preposition",
+          "idiom",
+          "noun"
+        ]
       },
       {
         "word": "the",
-        "pos": ["article"]
+        "pos": [
+          "definite-article",
+          "adverb"
+        ]
       },
       {
         "word": "boffin",
-        "pos": ["noun"]
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "of",
-        "pos": ["preposition"]
+        "pos": [
+          "preposition"
+        ]
       },
       {
         "word": "the",
-        "pos": ["article"]
+        "pos": [
+          "definite-article",
+          "adverb"
+        ]
       },
       {
         "word": "necromancers",
-        "pos": ["noun"]
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "commands",
-        "pos": ["verb"]
+        "pos": [
+          "verb",
+          "noun"
+        ]
       },
       {
         "word": "and",
-        "pos": ["conjunction"]
+        "pos": [
+          "conjunction",
+          "idiom"
+        ]
       },
       {
         "word": "switch",
-        "pos": ["verb"]
+        "pos": [
+          "noun",
+          "verb-transitive",
+          "verb-intransitive",
+          "phrasal-verb"
+        ]
       },
       {
         "word": "allegiances",
-        "pos": ["noun"]
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "as",
-        "pos": ["conjunction"]
+        "pos": [
+          "adverb",
+          "conjunction",
+          "pronoun",
+          "preposition",
+          "idiom",
+          "noun"
+        ]
       },
       {
         "word": "though",
-        "pos": ["adverb"]
+        "pos": [
+          "conjunction",
+          "adverb"
+        ]
       },
       {
         "word": "you",
-        "pos": ["noun"]
+        "pos": [
+          "pronoun"
+        ]
       },
       {
         "word": "were",
-        "pos": ["verb"]
+        "pos": [
+          "verb"
+        ]
       },
       {
         "word": "a",
-        "pos": ["article"]
+        "pos": [
+          "indefinite-article"
+        ]
       },
       {
         "word": "popinjay",
-        "pos": ["noun"]
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "in",
-        "pos": ["preposition"]
+        "pos": [
+          "preposition",
+          "adverb",
+          "adjective",
+          "noun",
+          "idiom",
+          "abbreviation"
+        ]
       },
       {
         "word": "a",
-        "pos": ["article"]
+        "pos": [
+          "indefinite-article"
+        ]
       },
       {
         "word": "chiffon",
-        "pos": ["adjective"]
+        "pos": [
+          "noun",
+          "adjective"
+        ]
       },
       {
         "word": "chemise",
-        "pos": ["noun"]
+        "pos": [
+          "noun"
+        ]
       }
     ],
     expected: [
+      {
+        "word": "though",
+        "pos": [
+          "conjunction"
+        ],
+        "sentencePos": 12,
+        "children": [
+          {
+            "word": "as",
+            "pos": [
+              "conjunction"
+            ],
+            "sentencePos": 11,
+            "children": [
+              {
+                "word": "and",
+                "pos": [
+                  "conjunction"
+                ],
+                "sentencePos": 8,
+                "children": [
+                  {
+                    "word": "as",
+                    "pos": [
+                      "conjunction"
+                    ],
+                    "sentencePos": 1,
+                    "children": [
+                      {
+                        "word": "do",
+                        "pos": [
+                          "verb-transitive",
+                          "verb-intransitive",
+                          "auxiliary-verb",
+                          "phrasal-verb",
+                          "idiom"
+                        ],
+                        "sentencePos": 0,
+                        "directionFromHead": -1
+                      },
+                      {
+                        "word": "commands",
+                        "pos": [
+                          "verb",
+                          "noun"
+                        ],
+                        "sentencePos": 7,
+                        "children": [
+                          {
+                            "word": "of",
+                            "pos": [
+                              "preposition"
+                            ],
+                            "sentencePos": 4,
+                            "children": [
+                              {
+                                "word": "boffin",
+                                "pos": [
+                                  "noun"
+                                ],
+                                "sentencePos": 3,
+                                "children": [
+                                  {
+                                    "word": "the",
+                                    "pos": [
+                                      "definite-article",
+                                      "adverb"
+                                    ],
+                                    "sentencePos": 2,
+                                    "directionFromHead": -1
+                                  }
+                                ],
+                                "directionFromHead": -1
+                              },
+                              {
+                                "word": "necromancers",
+                                "pos": [
+                                  "noun"
+                                ],
+                                "sentencePos": 6,
+                                "children": [
+                                  {
+                                    "word": "the",
+                                    "pos": [
+                                      "definite-article",
+                                      "adverb"
+                                    ],
+                                    "sentencePos": 5,
+                                    "directionFromHead": -1
+                                  }
+                                ],
+                                "directionFromHead": 1
+                              }
+                            ],
+                            "directionFromHead": -1
+                          }
+                        ],
+                        "directionFromHead": 1
+                      }
+                    ],
+                    "directionFromHead": -1
+                  },
+                  {
+                    "word": "switch",
+                    "pos": [
+                      "verb-transitive",
+                      "verb-intransitive",
+                      "phrasal-verb"
+                    ],
+                    "sentencePos": 9,
+                    "directionFromHead": 1,
+                    "children": [
+                      {
+                        "word": "allegiances",
+                        "pos": [
+                          "noun"
+                        ],
+                        "sentencePos": 10,
+                        "directionFromHead": 1
+                      }
+                    ]
+                  }
+                ],
+                "directionFromHead": -1
+              }
+            ],
+            "directionFromHead": -1
+          },
+          {
+            "word": "in",
+            "pos": [
+              "preposition"
+            ],
+            "sentencePos": 17,
+            "children": [
+              {
+                "word": "were",
+                "pos": [
+                  "verb"
+                ],
+                "sentencePos": 14,
+                "children": [
+                  {
+                    "word": "you",
+                    "pos": [
+                      "pronoun"
+                    ],
+                    "sentencePos": 13,
+                    "directionFromHead": -1
+                  },
+                  {
+                    "word": "popinjay",
+                    "pos": [
+                      "noun"
+                    ],
+                    "sentencePos": 16,
+                    "children": [
+                      {
+                        "word": "a",
+                        "pos": [
+                          "indefinite-article"
+                        ],
+                        "sentencePos": 15,
+                        "directionFromHead": -1
+                      }
+                    ],
+                    "directionFromHead": 1
+                  }
+                ],
+                "directionFromHead": -1
+              },
+              {
+                "word": "chemise",
+                "pos": [
+                  "noun"
+                ],
+                "sentencePos": 20,
+                "children": [
+                  {
+                    "word": "a",
+                    "pos": [
+                      "indefinite-article"
+                    ],
+                    "sentencePos": 18,
+                    "directionFromHead": -1
+                  },
+                  {
+                    "word": "chiffon",
+                    "pos": [
+                      "adjective"
+                    ],
+                    "sentencePos": 19,
+                    "directionFromHead": -1
+                  }
+                ],
+                "directionFromHead": 1
+              }
+            ],
+            "directionFromHead": 1
+          }
+        ]
+      }
     ]
   }
 ];
@@ -168,12 +468,12 @@ testCases.forEach(runTest);
 function runTest(testCase) {
   test('Test: ' + testCase.name, function basicTest(t) {
     var parseGenerator = DependencyParser(testCase.createOpts);
-    var parseIterator = parseGenerator(testCase.sentence);
-    debugger;
+    var disambiguatedSentence = disambiguatePOS(testCase.sentence, 'pos');
+    var parseIterator = parseGenerator(disambiguatedSentence);
     var parsed = runIteratorUntilDone(parseIterator);
-    var childBasedTree = flipTreeHeadToChild(parsed);
     debugger;
-    console.log(JSON.stringify(childBasedTree, null, '  '));
+    var childBasedTree = flipTreeHeadToChild(parsed.sentence);
+    // console.log(JSON.stringify(childBasedTree, null, '  '));
     t.deepEqual(childBasedTree, testCase.expected, 'Parse tree is correct.');
     t.end();
   });

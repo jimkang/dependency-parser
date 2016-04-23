@@ -2,7 +2,6 @@ var Graph = require('./graph');
 var renderFormPane = require('./render-form-pane');
 var DependencyParser = require('../index');
 var flipTreeHeadToChild = require('../flip-tree-head-to-child');
-var runIteratorUntilDone = require('../tests/fixtures/run-until-done');
 var cloneDeep = require('lodash.clonedeep');
 var createWordnok = require('wordnok').createWordnok;
 var config = require('./config');
@@ -276,7 +275,7 @@ function runConversionToJSON(text) {
 function updateWithDisambiguation(text) {
   var wordNodes = JSON.parse(text);
   disambiguatePOS(wordNodes, 'pos');
-  var disambiguated = JSON.stringify(wordNodes, null, '  ')
+  var disambiguated = JSON.stringify(wordNodes, null, '  ');
   renderedForm.setSentenceJsonField(disambiguated);
   return disambiguated;
 }
