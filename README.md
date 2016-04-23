@@ -110,6 +110,17 @@ Tests
 
 Run tests with `make test`.
 
+TODO
+----
+
+- Tag in-tree nodes with the single POS used to place them; use that POS for future comparisons instead of the original POS set.
+
+Next test cases:
+
+- No one wants it but the orphans who aged out of the system.
+- My water heater broke and flooded my basement!
+
+
 License
 -------
 
