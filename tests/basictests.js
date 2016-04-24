@@ -1,5 +1,5 @@
-// var test = require('tap').test;
-var test = require('tape');
+var test = require('tap').test;
+// var test = require('tape');
 var DependencyParser = require('../index');
 var flipTreeHeadToChild = require('../flip-tree-head-to-child');
 var runIteratorUntilDone = require('./fixtures/run-until-done');
@@ -322,8 +322,7 @@ var testCases = [
                                   {
                                     "word": "the",
                                     "pos": [
-                                      "definite-article",
-                                      "adverb"
+                                      "definite-article"
                                     ],
                                     "sentencePos": 2,
                                     "directionFromHead": -1
@@ -341,8 +340,7 @@ var testCases = [
                                   {
                                     "word": "the",
                                     "pos": [
-                                      "definite-article",
-                                      "adverb"
+                                      "definite-article"
                                     ],
                                     "sentencePos": 5,
                                     "directionFromHead": -1
@@ -467,8 +465,9 @@ testCases.forEach(runTest);
 
 function runTest(testCase) {
   test('Test: ' + testCase.name, function basicTest(t) {
-    var parseGenerator = DependencyParser(testCase.createOpts);
     var disambiguatedSentence = disambiguatePOS(testCase.sentence, 'pos');
+    console.log('disambiguatedSentence', disambiguatedSentence);
+    var parseGenerator = DependencyParser(testCase.createOpts);
     var parseIterator = parseGenerator(disambiguatedSentence);
     var parsed = runIteratorUntilDone(parseIterator);
     debugger;

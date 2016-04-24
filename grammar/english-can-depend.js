@@ -5,7 +5,33 @@ var verbFam = ['verb', 'verb-transitive', 'verb-intransitive'];
 var articleFam = ['definite-article', 'indefinite-article', 'article'];
 var nounFam = ['noun', 'pronoun'];
 
-// TODO: POS priority
+var profiles = [
+  {
+    headPOS: verbFam,
+    dependentPOS: nounFam.concat(['adverb', 'preposition'])
+  },
+  {
+    headPOS: nounFam,
+    dependentPOS: articleFam.concat(['adjective'])
+  },
+  {
+    headPOS: ['adjective'],
+    dependentPOS: ['adverb']
+  },
+  {
+    headPOS: ['conjunction'],
+    dependentPOS: verbFam.concat(['conjunction', 'preposition'])
+  },
+  {
+    headPOS: ['adverb'],
+    dependentPOS: ['adverb']
+  },
+  {
+    headPOS: ['preposition'],
+    dependentPOS: nounFam.concat(verbFam)
+  }
+];
+
 function canDepend(opts) {
   var dependent;
   var head;
@@ -21,35 +47,41 @@ function canDepend(opts) {
 
   var posDependent = dependent.pos;
   var posHead = head.pos;
+  var finding = {};  
 
-  var canDepend = overlaps(posHead, verbFam) &&
-    overlaps(posDependent, nounFam.concat(['adverb', 'preposition']));
+  profiles.some(checkAgainstProfile);
 
-  if (!canDepend && overlaps(posHead, nounFam)) {
-    canDepend = overlaps(posDependent, articleFam.concat(['adjective']));
+  function checkAgainstProfile(profile) {
+    finding = checkProfile(head.pos, dependent.pos, profile);
+    return finding.canDepend;
   }
 
-  if (!canDepend && contains(posHead, 'adjective')) {
-    canDepend = overlaps(posDependent, ['adverb']);
-  }
-
-  if (!canDepend && contains(posHead, 'conjunction')) {
-    canDepend = overlaps(posDependent, verbFam.concat(['conjunction', 'preposition']));
-  }
-
-  if (!canDepend && contains(posHead, 'adverb')) {
-    canDepend = contains(posDependent, 'adverb');
-  }
-
-  if (!canDepend && contains(posHead, 'preposition')) {
-    canDepend = overlaps(posDependent, nounFam.concat(verbFam));
-  }
-
-  return canDepend;
+  return finding;
 }
 
 function overlaps(listA, listB) {
   return intersection(listA, listB).length > 0;
+}
+
+function checkProfile(posHead, posDependent, profile) {
+  var finding = {
+    canDepend: false
+  };
+
+  var headOverlap = intersection(posHead, profile.headPOS);
+  if (headOverlap.length > 0) {
+    var dependentOverlap = intersection(posDependent, profile.dependentPOS);
+
+    if (dependentOverlap.length > 0) {
+      finding.canDepend = true;
+      finding.roles = {
+        dependent: dependentOverlap[0],
+        head: headOverlap[0]
+      };
+    }
+  }
+
+  return finding;
 }
 
 module.exports  = canDepend;

@@ -66,11 +66,7 @@ function DependencyParser(createOpts) {
           next: nextNode
         });
 
-        if (headlessCanDependOnCurrent) {
-          if (headlessWordNode.word === 'and') {
-            // debugger;
-          }
-
+        if (headlessCanDependOnCurrent.canDepend) {
           // Should this be a grammar rule?
           if (headlessWordNode.pos !== wordNode.pos ||
             headlessWordNode.sentencePos > wordNode.sentencePos) {
@@ -100,7 +96,7 @@ function DependencyParser(createOpts) {
             head: precedingNode
           });
 
-          if (currentCanDependOnPreceding) {
+          if (currentCanDependOnPreceding.canDepend) {
             // If precedingNode already has two children, can wordNode replace preceding node?
             if (childCountsForHeads[precedingNode.sentencePos] > 1 &&
               canSwap(precedingNode, wordNode)) {
@@ -139,11 +135,11 @@ function DependencyParser(createOpts) {
       canDepend({
         dependent: potentialReplacementNode,
         head: inTreeNode.head
-      }) &&
+      }).canDepend &&
       canDepend({
         dependent: inTreeNode,
         head: potentialReplacementNode
-      });
+      }).canDepend;
   }
 }
 

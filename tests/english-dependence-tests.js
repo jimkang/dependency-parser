@@ -7,133 +7,217 @@ var testCases = [
     name: 'Verb cannot depend on verb',
     posA: ['verb'],
     posB: ['verb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Noun can depend on verb',
     posA: ['noun'],
     posB: ['verb'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'noun',
+        head: 'verb'
+      }
+    }
   },
   {
     name: 'Adverb can depend on verb',
     posA: ['adverb'],
     posB: ['verb'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'adverb',
+        head: 'verb'
+      }
+    }
   },
   {
     name: 'Adjective cannot depend on verb',
     posA: ['adjective'],
     posB: ['verb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Adverb can depend on adverb',
     posA: ['adverb'],
     posB: ['adverb'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'adverb',
+        head: 'adverb'
+      }
+    }
   },  
   {
     name: 'Article cannot depend on verb',
     posA: ['article'],
     posB: ['verb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Verb cannot depend on noun',
     posA: ['verb'],
     posB: ['noun'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Adjective can depend on noun',
     posA: ['adjective'],
     posB: ['noun'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'adjective',
+        head: 'noun'
+      }
+    }
   },
   {
     name: 'Article can depend on noun',
     posA: ['article'],
     posB: ['noun'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'article',
+        head: 'noun'
+      }
+    }
   },
   {
     name: 'Adverb cannot depend on noun',
     posA: ['adverb'],
     posB: ['noun'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Noun cannot depend on noun',
     posA: ['noun'],
     posB: ['noun'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Article cannot depend on adjective',
     posA: ['article'],
     posB: ['adjective'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Adverb cannot depend on adjective',
     posA: ['adverb'],
     posB: ['adjective'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'adverb',
+        head: 'adjective'
+      }
+    }
   },
   {
     name: 'Article cannot depend on adverb',
     posA: ['article'],
     posB: ['adverb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Adjective cannot depend on adverb',
     posA: ['adjective'],
     posB: ['adverb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Verb can depend on conjunction',
     posA: ['verb'],
     posB: ['conjunction'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'verb',
+        head: 'conjunction'
+      }
+    }
   },
   {
     name: 'Conjunction cannot depend on verb',
     posA: ['conjunction'],
     posB: ['verb'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Conjunction can depend on conjunction',
     posA: ['conjunction'],
     posB: ['conjunction'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'conjunction',
+        head: 'conjunction'
+      }
+    }
   },
   {
     name: 'Preposition can depend on verb',
     posA: ['preposition'],
     posB: ['verb'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'preposition',
+        head: 'verb'
+      }
+    }
   },
   {
     name: 'Preposition cannot depend on noun',
     posA: ['preposition'],
     posB: ['noun'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Preposition cannot depend on adjective',
     posA: ['preposition'],
     posB: ['adjective'],
-    expected: false
+    expected: {
+      canDepend: false
+    }
   },
   {
     name: 'Noun can depend on preposition',
     posA: ['noun'],
     posB: ['preposition'],
-    expected: true
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'noun',
+        head: 'preposition'
+      }
+    }
   }
 ];
 
@@ -143,7 +227,7 @@ function runTest(testCase) {
   test('Test: ' + testCase.name, basicTest);
 
   function basicTest(t) {
-    t.equal(
+    t.deepEqual(
       canDepend({
         dependent: {
           pos: testCase.posA
