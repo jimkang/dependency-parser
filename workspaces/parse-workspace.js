@@ -199,7 +199,7 @@ function updateGraph(sentenceJSONText) {
     result = stepParsingForward(sentenceJSONText);
   }
   while (!result.done);
-
+console.log(JSON.stringify(result.tree, null, '  '));
   graph.renderUpdate(result.tree);
 }
 

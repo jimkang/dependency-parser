@@ -114,9 +114,11 @@ TODO
 ----
 
 - Tag in-tree nodes with the single POS used to place them; use that POS for future comparisons instead of the original POS set.
+- Consider adding dependents to other dependents.
 
 Next test cases:
 
+- You take the cool sword.
 - No one wants it but the orphans who aged out of the system.
 - My water heater broke and flooded my basement!
 

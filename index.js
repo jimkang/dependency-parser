@@ -24,6 +24,22 @@ function DependencyParser(createOpts) {
       childCountsForHeads[node.sentencePos] = count;
     }
 
+    function decrementChildCountForNode(node) {
+      var count = childCountsForHeads[node.sentencePos];
+      if (!isNaN(count)) {
+        count -= 1;
+        childCountsForHeads[node.sentencePos] = count;
+      }
+    }
+
+    function setHeadDependentPair(headNode, dependentNode, grammarFinding) {
+      if (dependentNode.head) {
+        decrementChildCountForNode(dependentNode.head);
+      }
+      dependentNode.head = headNode;
+      incrementChildCountForNode(headNode);
+    }
+
     sentence.forEach(tagWithSentencePosition);
 
     for (var i = 0; i < sentence.length; ++i) {
@@ -36,8 +52,7 @@ function DependencyParser(createOpts) {
       }
     }
     // console.log(JSON.stringify(sentence, null, '  '));
-    // debugger;
-    // return flipTreeHeadToChild(sentence);
+
     return {
       sentence: sentence,
       headless: headless
@@ -71,11 +86,7 @@ function DependencyParser(createOpts) {
           if (headlessWordNode.pos !== wordNode.pos ||
             headlessWordNode.sentencePos > wordNode.sentencePos) {
 
-            // if (childCountsForHeads[wordNode.sentencePos] > 1) {
-            //   debugger;
-            // }
-            headlessWordNode.head = wordNode;
-            incrementChildCountForNode(wordNode);
+            setHeadDependentPair(wordNode, headlessWordNode, headlessCanDependOnCurrent);
 
             headlessIndexesToDelete.push(i);
           }
@@ -101,13 +112,15 @@ function DependencyParser(createOpts) {
             if (childCountsForHeads[precedingNode.sentencePos] > 1 &&
               canSwap(precedingNode, wordNode)) {
 
-              wordNode.head = precedingNode.head;
-              precedingNode.head = wordNode;
-              incrementChildCountForNode(wordNode);
+              setHeadDependentPair(
+                precedingNode.head, wordNode, currentCanDependOnPreceding
+              );
+              setHeadDependentPair(
+                wordNode, precedingNode, currentCanDependOnPreceding
+              );
             }
             else {
-              wordNode.head = precedingNode;
-              incrementChildCountForNode(precedingNode);
+              setHeadDependentPair(precedingNode, wordNode, currentCanDependOnPreceding);
             }
 
             break;
