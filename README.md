@@ -113,14 +113,13 @@ Run tests with `make test`.
 TODO
 ----
 
-- Tag in-tree nodes with the single POS used to place them; use that POS for future comparisons instead of the original POS set.
 - Consider adding dependents to other dependents.
+- If there is already a child with the same directionFromHead, try swapping places with that child, ignoring its de facto POS.
 
 Next test cases:
 
 - No one wants it but the orphans who aged out of the system.
 - My water heater broke and flooded my basement!
-
 
 License
 -------
