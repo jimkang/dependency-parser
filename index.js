@@ -37,6 +37,9 @@ function DependencyParser(createOpts) {
         decrementChildCountForNode(dependentNode.head);
       }
       dependentNode.head = headNode;
+      dependentNode.defactoPOS = grammarFinding.roles.dependent;
+      headNode.defactoPOS = grammarFinding.roles.head;
+
       incrementChildCountForNode(headNode);
     }
 

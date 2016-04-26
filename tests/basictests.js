@@ -54,6 +54,7 @@ var testCases = [
           "verb"
         ],
         "sentencePos": 1,
+        "defactoPOS": "verb",
         "children": [
           {
             "word": "i",
@@ -61,6 +62,7 @@ var testCases = [
               "noun"
             ],
             "sentencePos": 0,
+            "defactoPOS": "noun",
             "directionFromHead": -1
           },
           {
@@ -69,6 +71,7 @@ var testCases = [
               "noun"
             ],
             "sentencePos": 4,
+            "defactoPOS": "noun",
             "children": [
               {
                 "word": "a",
@@ -76,6 +79,7 @@ var testCases = [
                   "indefinite-article"
                 ],
                 "sentencePos": 2,
+                "defactoPOS": "indefinite-article",
                 "directionFromHead": -1
               },
               {
@@ -85,13 +89,14 @@ var testCases = [
                   "adverb"
                 ],
                 "sentencePos": 3,
+                "defactoPOS": "adjective",
                 "directionFromHead": -1
               }
             ],
             "directionFromHead": 1
           }
         ]
-      }    
+}
     ]    
   },
 
@@ -263,6 +268,7 @@ var testCases = [
           "conjunction"
         ],
         "sentencePos": 12,
+        "defactoPOS": "conjunction",
         "children": [
           {
             "word": "as",
@@ -270,6 +276,7 @@ var testCases = [
               "conjunction"
             ],
             "sentencePos": 11,
+            "defactoPOS": "conjunction",
             "children": [
               {
                 "word": "and",
@@ -277,6 +284,7 @@ var testCases = [
                   "conjunction"
                 ],
                 "sentencePos": 8,
+                "defactoPOS": "conjunction",
                 "children": [
                   {
                     "word": "as",
@@ -284,6 +292,7 @@ var testCases = [
                       "conjunction"
                     ],
                     "sentencePos": 1,
+                    "defactoPOS": "conjunction",
                     "children": [
                       {
                         "word": "do",
@@ -295,6 +304,7 @@ var testCases = [
                           "idiom"
                         ],
                         "sentencePos": 0,
+                        "defactoPOS": "verb-transitive",
                         "directionFromHead": -1
                       },
                       {
@@ -304,6 +314,7 @@ var testCases = [
                           "noun"
                         ],
                         "sentencePos": 7,
+                        "defactoPOS": "verb",
                         "children": [
                           {
                             "word": "of",
@@ -311,6 +322,7 @@ var testCases = [
                               "preposition"
                             ],
                             "sentencePos": 4,
+                            "defactoPOS": "preposition",
                             "children": [
                               {
                                 "word": "boffin",
@@ -318,6 +330,7 @@ var testCases = [
                                   "noun"
                                 ],
                                 "sentencePos": 3,
+                                "defactoPOS": "noun",
                                 "children": [
                                   {
                                     "word": "the",
@@ -325,6 +338,7 @@ var testCases = [
                                       "definite-article"
                                     ],
                                     "sentencePos": 2,
+                                    "defactoPOS": "definite-article",
                                     "directionFromHead": -1
                                   }
                                 ],
@@ -336,6 +350,7 @@ var testCases = [
                                   "noun"
                                 ],
                                 "sentencePos": 6,
+                                "defactoPOS": "noun",
                                 "children": [
                                   {
                                     "word": "the",
@@ -343,6 +358,7 @@ var testCases = [
                                       "definite-article"
                                     ],
                                     "sentencePos": 5,
+                                    "defactoPOS": "definite-article",
                                     "directionFromHead": -1
                                   }
                                 ],
@@ -365,6 +381,7 @@ var testCases = [
                       "phrasal-verb"
                     ],
                     "sentencePos": 9,
+                    "defactoPOS": "verb-transitive",
                     "directionFromHead": 1,
                     "children": [
                       {
@@ -373,6 +390,7 @@ var testCases = [
                           "noun"
                         ],
                         "sentencePos": 10,
+                        "defactoPOS": "noun",
                         "directionFromHead": 1
                       }
                     ]
@@ -389,6 +407,7 @@ var testCases = [
               "preposition"
             ],
             "sentencePos": 17,
+            "defactoPOS": "preposition",
             "children": [
               {
                 "word": "were",
@@ -396,6 +415,7 @@ var testCases = [
                   "verb"
                 ],
                 "sentencePos": 14,
+                "defactoPOS": "verb",
                 "children": [
                   {
                     "word": "you",
@@ -403,6 +423,7 @@ var testCases = [
                       "pronoun"
                     ],
                     "sentencePos": 13,
+                    "defactoPOS": "pronoun",
                     "directionFromHead": -1
                   },
                   {
@@ -411,6 +432,7 @@ var testCases = [
                       "noun"
                     ],
                     "sentencePos": 16,
+                    "defactoPOS": "noun",
                     "children": [
                       {
                         "word": "a",
@@ -418,6 +440,7 @@ var testCases = [
                           "indefinite-article"
                         ],
                         "sentencePos": 15,
+                        "defactoPOS": "indefinite-article",
                         "directionFromHead": -1
                       }
                     ],
@@ -432,6 +455,7 @@ var testCases = [
                   "noun"
                 ],
                 "sentencePos": 20,
+                "defactoPOS": "noun",
                 "children": [
                   {
                     "word": "a",
@@ -439,6 +463,7 @@ var testCases = [
                       "indefinite-article"
                     ],
                     "sentencePos": 18,
+                    "defactoPOS": "indefinite-article",
                     "directionFromHead": -1
                   },
                   {
@@ -447,6 +472,7 @@ var testCases = [
                       "adjective"
                     ],
                     "sentencePos": 19,
+                    "defactoPOS": "adjective",
                     "directionFromHead": -1
                   }
                 ],

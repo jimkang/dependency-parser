@@ -218,6 +218,47 @@ var testCases = [
         head: 'preposition'
       }
     }
+  },
+
+  {
+    name: 'Verb/noun can depend on conjunction',
+    posA: ['verb', 'noun'],
+    posB: ['conjunction'],
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'verb',
+        head: 'conjunction'
+      }
+    }
+  },
+
+  {
+    name: 'DefactoPOS is favored when checking if conjunction/adverb can depend on verb',
+    posA: ['adverb', 'conjunction'],
+    defactoPosA: 'conjunction',
+    posB: ['verb'],
+    expected: {
+      canDepend: false
+    }
+  },
+  {
+    name: 'DefactoPOS is favored when checking if adverb can depend on verb',
+    posA: ['adverb', 'conjunction'],
+    posB: [
+      'noun',
+      'verb-transitive',
+      'verb-intransitive',
+      'phrasal-verb'
+    ],
+    defactoPosB: 'verb-transitive',
+    expected: {
+      canDepend: true,
+      roles: {
+        dependent: 'adverb',
+        head: 'verb-transitive'
+      }
+    }
   }
 ];
 
@@ -230,10 +271,12 @@ function runTest(testCase) {
     t.deepEqual(
       canDepend({
         dependent: {
-          pos: testCase.posA
+          pos: testCase.posA,
+          defactoPOS: testCase.defactoPosA
         },
         head: {
-          pos: testCase.posB
+          pos: testCase.posB,
+          defactoPOS: testCase.defactoPosB
         }
       }),
       testCase.expected,

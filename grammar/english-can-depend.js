@@ -46,13 +46,19 @@ function canDepend(opts) {
   }
 
   var posDependent = dependent.pos;
+  if (dependent.defactoPOS) {
+    posDependent = [dependent.defactoPOS];
+  }
   var posHead = head.pos;
+  if (head.defactoPOS) {
+    posHead = [head.defactoPOS];
+  }
   var finding = {};  
 
   profiles.some(checkAgainstProfile);
 
   function checkAgainstProfile(profile) {
-    finding = checkProfile(head.pos, dependent.pos, profile);
+    finding = checkProfile(posHead, posDependent, profile);
     return finding.canDepend;
   }
 
@@ -71,7 +77,6 @@ function checkProfile(posHead, posDependent, profile) {
   var headOverlap = intersection(posHead, profile.headPOS);
   if (headOverlap.length > 0) {
     var dependentOverlap = intersection(posDependent, profile.dependentPOS);
-
     if (dependentOverlap.length > 0) {
       finding.canDepend = true;
       finding.roles = {
