@@ -156,20 +156,6 @@ function DependencyParser(createOpts) {
   }
   
   return parse;
-
-  // Can inTreeNode's head be potentialReplacementNode's head?
-  // And can potentialReplacementNode be inTreeNode's head?
-  function canSwap(inTreeNode, potentialReplacementNode) {
-    return inTreeNode.head &&
-      canDepend({
-        dependent: potentialReplacementNode,
-        head: inTreeNode.head
-      }).canDepend &&
-      canDepend({
-        dependent: inTreeNode,
-        head: potentialReplacementNode
-      }).canDepend;
-  }
 }
 
 function getPreviousWordThatIsNotADependent(index, sentence) {
