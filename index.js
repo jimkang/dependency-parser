@@ -97,9 +97,10 @@ function DependencyParser(createOpts) {
       }
 
       headlessIndexesToDelete.reverse().forEach(deleteFromHeadless);
-      // console.log('headless', headless);
 
-      var precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
+      // Re-establish the preceding node after possible changes to the tree above.
+      precedingNode = getPreviousWordThatIsNotADependent(sentenceIndex, sentence);
+
       if (precedingNode) {
         do {
           var currentCanDependOnPreceding = canDepend({
@@ -108,18 +109,33 @@ function DependencyParser(createOpts) {
           });
 
           if (currentCanDependOnPreceding.canDepend) {
+            var didSwap = false;
             // If precedingNode already has two children, can wordNode replace preceding node?
-            if (childCountsForHeads[precedingNode.sentencePos] > 1 &&
-              canSwap(precedingNode, wordNode)) {
-
-              setHeadDependentPair(
-                precedingNode.head, wordNode, currentCanDependOnPreceding
-              );
-              setHeadDependentPair(
-                wordNode, precedingNode, currentCanDependOnPreceding
-              );
+            if (childCountsForHeads[precedingNode.sentencePos] > 1) {
+              if (precedingNode.head) {
+                var currentCanDependOnPrecedingHead = canDepend({
+                  dependent: wordNode,
+                  head: precedingNode.head
+                });
+                if (currentCanDependOnPrecedingHead.canDepend) {
+                  var precedingCanDependOnCurrent = canDepend({
+                    dependent: precedingNode,
+                    head: wordNode
+                  });
+                  if (precedingCanDependOnCurrent.canDepend) {
+                    setHeadDependentPair(
+                      precedingNode.head, wordNode, currentCanDependOnPrecedingHead
+                    );
+                    setHeadDependentPair(
+                      wordNode, precedingNode, precedingCanDependOnCurrent
+                    );
+                    didSwap = true;
+                  }
+                }
+              }
             }
-            else {
+
+            if (!didSwap) {
               setHeadDependentPair(precedingNode, wordNode, currentCanDependOnPreceding);
             }
 
@@ -176,7 +192,6 @@ function tagWithSentencePosition(wordNode, i) {
 function isDependent(wordNode, potentialHead) {
   var currentNode = wordNode;
   while ('head' in currentNode) {
-    // console.log('isDependent currentNode', currentNode);
     currentNode = currentNode.head;
     if (currentNode.sentencePos === potentialHead.sentencePos) {
       return true;
