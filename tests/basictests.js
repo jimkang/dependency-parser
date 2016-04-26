@@ -484,6 +484,112 @@ var testCases = [
         ]
       }
     ]
+  },
+
+  {
+    name: 'You take the cool sword.',
+    createOpts: {},
+    sentence: [
+      {
+        "word": "you",
+        "pos": [
+          "pronoun"
+        ]
+      },
+      {
+        "word": "take",
+        "pos": [
+          "verb-transitive",
+          "verb-intransitive",
+          "noun",
+          "phrasal-verb",
+          "idiom"
+        ]
+      },
+      {
+        "word": "the",
+        "pos": [
+          "definite-article",
+          "adverb"
+        ]
+      },
+      {
+        "word": "cool",
+        "pos": [
+          "adjective",
+          "adverb",
+          "verb-transitive",
+          "verb-intransitive",
+          "noun",
+          "idiom"
+        ]
+      },
+      {
+        "word": "sword",
+        "pos": [
+          "noun",
+          "idiom"
+        ]
+      }
+    ],
+    expected: [
+      {
+        "word": "take",
+        "pos": [
+          "verb-transitive",
+          "verb-intransitive",
+          "noun",
+          "phrasal-verb",
+          "idiom"
+        ],
+        "sentencePos": 1,
+        "defactoPOS": "verb-transitive",
+        "children": [
+          {
+            "word": "you",
+            "pos": [
+              "pronoun"
+            ],
+            "sentencePos": 0,
+            "defactoPOS": "pronoun",
+            "directionFromHead": -1
+          },
+          {
+            "word": "sword",
+            "pos": [
+              "noun"
+            ],
+            "sentencePos": 4,
+            "defactoPOS": "noun",
+            "children": [
+              {
+                "word": "the",
+                "pos": [
+                  "definite-article"
+                ],
+                "sentencePos": 2,
+                "defactoPOS": "definite-article",
+                "directionFromHead": -1
+              },
+              {
+                "word": "cool",
+                "pos": [
+                  "adjective",
+                  "adverb",
+                  "verb-transitive",
+                  "verb-intransitive",
+                  "idiom"
+                ],
+                "sentencePos": 3,
+                "defactoPOS": "adjective",
+                "directionFromHead": -1
+              }
+            ],
+            "directionFromHead": 1
+          }
+        ]
+      }
+    ]
   }
 ];
 

@@ -118,7 +118,6 @@ TODO
 
 Next test cases:
 
-- You take the cool sword.
 - No one wants it but the orphans who aged out of the system.
 - My water heater broke and flooded my basement!
 
