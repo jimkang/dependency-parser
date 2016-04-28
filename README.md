@@ -115,11 +115,13 @@ TODO
 
 - Consider adding dependents to other dependents.
 - If there is already a child with the same directionFromHead, try swapping places with that child, ignoring its de facto POS.
+- Consider quitting when you are about to add a third dependent to a head. At that point, it may be clear that you may never really understand the sentence.
 
 Next test cases:
 
 - No one wants it but the orphans who aged out of the system.
 - My water heater broke and flooded my basement!
+- Obvious exits are NORTH, SOUTH and DENNIS.
 
 License
 -------
