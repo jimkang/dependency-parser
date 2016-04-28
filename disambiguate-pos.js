@@ -41,7 +41,9 @@ function disambiguatePartsOfSpeechInCurrent(preceding, current, following) {
     current = ['definite-article'];
   }
   else if (following) {
-    if (contains(current, 'noun') && contains(following, 'noun')) {
+    if (contains(current, 'noun') &&
+      contains(following, 'noun') && !contains(following, 'preposition')) {
+
       current = without(current, 'noun');
     }
   }

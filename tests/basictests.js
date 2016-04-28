@@ -300,6 +300,7 @@ var testCases = [
                           "verb-transitive",
                           "verb-intransitive",
                           "auxiliary-verb",
+                          "noun",
                           "phrasal-verb",
                           "idiom"
                         ],
