@@ -85,8 +85,7 @@ var testCases = [
               {
                 "word": "great",
                 "pos": [
-                  "adjective",
-                  "adverb"
+                  "adjective"
                 ],
                 "sentencePos": 3,
                 "defactoPOS": "adjective",
@@ -96,7 +95,7 @@ var testCases = [
             "directionFromHead": 1
           }
         ]
-}
+      }      
     ]    
   },
 
@@ -297,12 +296,7 @@ var testCases = [
                       {
                         "word": "do",
                         "pos": [
-                          "verb-transitive",
-                          "verb-intransitive",
-                          "auxiliary-verb",
-                          "noun",
-                          "phrasal-verb",
-                          "idiom"
+                          "verb-transitive"
                         ],
                         "sentencePos": 0,
                         "defactoPOS": "verb-transitive",
@@ -311,8 +305,7 @@ var testCases = [
                       {
                         "word": "commands",
                         "pos": [
-                          "verb",
-                          "noun"
+                          "verb"
                         ],
                         "sentencePos": 7,
                         "defactoPOS": "verb",
@@ -377,9 +370,7 @@ var testCases = [
                   {
                     "word": "switch",
                     "pos": [
-                      "verb-transitive",
-                      "verb-intransitive",
-                      "phrasal-verb"
+                      "verb-transitive"
                     ],
                     "sentencePos": 9,
                     "defactoPOS": "verb-transitive",
@@ -483,7 +474,7 @@ var testCases = [
             "directionFromHead": 1
           }
         ]
-      }
+}    
     ]
   },
 
@@ -537,11 +528,7 @@ var testCases = [
       {
         "word": "take",
         "pos": [
-          "verb-transitive",
-          "verb-intransitive",
-          "noun",
-          "phrasal-verb",
-          "idiom"
+          "verb-transitive"
         ],
         "sentencePos": 1,
         "defactoPOS": "verb-transitive",
@@ -575,17 +562,71 @@ var testCases = [
               {
                 "word": "cool",
                 "pos": [
-                  "adjective",
-                  "adverb",
-                  "verb-transitive",
-                  "verb-intransitive",
-                  "idiom"
+                  "adjective"
                 ],
                 "sentencePos": 3,
                 "defactoPOS": "adjective",
                 "directionFromHead": -1
               }
             ],
+            "directionFromHead": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Cats are great',
+    createOpts: {},
+    sentence: [
+      {
+        "word": "cats",
+        "pos": [
+          "noun",
+          "verb"
+        ]
+      },
+      {
+        "word": "are",
+        "pos": [
+          "verb",
+          "noun"
+        ]
+      },
+      {
+        "word": "great",
+        "pos": [
+          "adjective",
+          "noun",
+          "adverb"
+        ]
+      }
+    ],
+    expected: [
+        {
+        "word": "are",
+        "pos": [
+          "verb"
+        ],
+        "sentencePos": 1,
+        "defactoPOS": "verb",
+        "children": [
+          {
+            "word": "cats",
+            "pos": [
+              "noun"
+            ],
+            "sentencePos": 0,
+            "defactoPOS": "noun",
+            "directionFromHead": -1
+          },
+          {
+            "word": "great",
+            "pos": [
+              "adjective"
+            ],
+            "sentencePos": 2,
+            "defactoPOS": "adjective",
             "directionFromHead": 1
           }
         ]

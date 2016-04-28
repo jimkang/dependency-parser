@@ -1,5 +1,7 @@
 var contains = require('lodash.contains');
 var without = require('lodash.without');
+var intersection = require('lodash.intersection');
+var posFam = require('./pos-families');
 
 function disambiguatePOS(wordNodes) {
   var preceding;
@@ -30,6 +32,10 @@ function disambiguatePartsOfSpeechInCurrent(preceding, current, following) {
   if (current.length < 2) {
     return current;
   }
+  var mostPopularPOSInFollowing;
+  if (following) {
+    mostPopularPOSInFollowing = following[0];
+  }
 
   if (contains(current, 'conjunction')) {
     current = ['conjunction'];
@@ -40,19 +46,23 @@ function disambiguatePartsOfSpeechInCurrent(preceding, current, following) {
   else if (contains(current, 'definite-article')) {
     current = ['definite-article'];
   }
-  else if (following) {
-    if (contains(current, 'noun') &&
-      contains(following, 'noun') && !contains(following, 'preposition')) {
-
-      current = without(current, 'noun');
-    }
+  else if (mostPopularPOSInFollowing &&
+    overlaps(current, posFam.noun) &&
+    contains(posFam.noun, mostPopularPOSInFollowing) &&
+    following !== 'preposition') {
+      
+    current = without(current, 'noun');
   }
-  else {
-    // The first POS for a word from Wordnik is usually the most common one.
-    current = current.slice(0, 1);
-  }
+  
+  // The first POS for a word from Wordnik is usually the most common one.
+  // TODO: In specific close-call situations, do not do this.
+  current = current.slice(0, 1);
 
   return current;
+}
+
+function overlaps(listA, listB) {
+  return intersection(listA, listB).length > 0;
 }
 
 module.exports = disambiguatePOS;

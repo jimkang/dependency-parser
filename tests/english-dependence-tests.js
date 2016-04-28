@@ -36,11 +36,15 @@ var testCases = [
     }
   },
   {
-    name: 'Adjective cannot depend on verb',
+    name: 'Adjective can depend on verb',
     posA: ['adjective'],
     posB: ['verb'],
     expected: {
-      canDepend: false
+      canDepend: true,
+      roles: {
+        dependent: 'adjective',
+        head: 'verb'
+      }
     }
   },
   {

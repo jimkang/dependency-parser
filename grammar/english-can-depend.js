@@ -1,18 +1,15 @@
 var contains = require('lodash.contains');
 var intersection = require('lodash.intersection');
-
-var verbFam = ['verb', 'verb-transitive', 'verb-intransitive'];
-var articleFam = ['definite-article', 'indefinite-article', 'article'];
-var nounFam = ['noun', 'pronoun'];
+var posFam = require('../pos-families');
 
 var profiles = [
   {
-    headPOS: verbFam,
-    dependentPOS: nounFam.concat(['adverb', 'preposition'])
+    headPOS: posFam.verb,
+    dependentPOS: posFam.noun.concat(['adverb', 'preposition', 'adjective'])
   },
   {
-    headPOS: nounFam,
-    dependentPOS: articleFam.concat(['adjective'])
+    headPOS: posFam.noun,
+    dependentPOS: posFam.article.concat(['adjective'])
   },
   {
     headPOS: ['adjective'],
@@ -20,7 +17,7 @@ var profiles = [
   },
   {
     headPOS: ['conjunction'],
-    dependentPOS: verbFam.concat(['conjunction', 'preposition'])
+    dependentPOS: posFam.verb.concat(['conjunction', 'preposition'])
   },
   {
     headPOS: ['adverb'],
@@ -28,7 +25,7 @@ var profiles = [
   },
   {
     headPOS: ['preposition'],
-    dependentPOS: nounFam.concat(verbFam)
+    dependentPOS: posFam.noun.concat(posFam.verb)
   }
 ];
 
@@ -63,10 +60,6 @@ function canDepend(opts) {
   }
 
   return finding;
-}
-
-function overlaps(listA, listB) {
-  return intersection(listA, listB).length > 0;
 }
 
 function checkProfile(posHead, posDependent, profile) {
