@@ -17,4 +17,7 @@ d3-tree: $(D3_TREE_FILES)
 	node_modules/.bin/smash $(D3_TREE_FILES) > lib/d3-tree.js
 
 graph-workspace:
-	wzrd workspaces/parse-workspace.js:index.js -- -d -t [babelify ---presets [es2015]]
+	wzrd workspaces/parse-workspace.js:workspace-index.js -- -d -t [babelify ---presets [es2015]]
+
+build-workspace:
+	browserify workspaces/parse-workspace.js -d -t [babelify ---presets [es2015]] > workspace-index.js

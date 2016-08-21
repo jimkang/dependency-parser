@@ -3,6 +3,8 @@ dependency-parser
 
 Parses sentences (in the form of an array of objects representing words) into dependency trees.
 
+[Try it out.](http://jimkang.com/dependency-parser/)
+
 A [dependency tree](https://en.wikipedia.org/wiki/Parse_tree#Dependency-based_parse_trees) maps a sentence to a tree in which each word is a node. Every node is either dependent on another node or the *head* of another node or both. For example, in the sentence "I guess this is life now.":
 
 - The noun "I" is a dependent of the verb "guess".

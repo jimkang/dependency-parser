@@ -23,19 +23,19 @@ function renderFormPane(opts) {
     .attr('value', sentenceText);
 
   var textToJSONButton = pane.append('button')
-    .text('Sentence to JSON!')
+    .text('Sentence to JSON! (Step 1)')
     .classed('sentence-to-json', true)
     .on('click', sendSentenceToConvert);
 
   var disambiguateButton = pane.append('button')
-    .text('Disambiguate parts of speech!')
+    .text('Disambiguate parts of speech! (Step 2)')
     .classed('disambiguate-button', true)
     .on('click', sendSentenceToBeDisambiguated);
 
-  var parseButton = pane.append('button').classed('parse-button', true).text('Parse!');
+  var parseButton = pane.append('button').classed('parse-button', true).text('Parse! (Step 3)');
   parseButton.on('click', sendSentenceJSON);
 
-  var stepButton = pane.append('button').classed('step-button', true).text('Step!');
+  var stepButton = pane.append('button').classed('step-button', true).text('Do a single parse step!');
   stepButton.on('click', sendSentenceJSONToStep);
 
   var sentenceJSONField = pane.append('textarea')
