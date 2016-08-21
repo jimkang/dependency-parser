@@ -33,66 +33,114 @@ Usage
 -----
 
     var DependencyParser = require('dependency-parser');
-    var parse = DependencyParser();
+    var flipTreeHeadToChild = require('dependency-parser/flip-tree-head-to-child');
+    var disambiguatePOS = require('dependency-parser/disambiguate-pos');
+    var parseGenerator = DependencyParser();
 
-    var firstSentenceSubtree = nlcstTree.children[0].children[0];
     var sentence = [
       {
-        "word": "I",
-        "pos": ["noun"]
+        "word": "i",
+        "pos": [
+          "noun"
+        ]
       },
       {
         "word": "am",
-        "pos": ["verb"]
+        "pos": [
+          "verb"
+        ]
       },
       {
         "word": "a",
-        "pos": ["article"]
+        "pos": [
+          "indefinite-article"
+        ]
       },
       {
         "word": "great",
-        "pos": ["adjective", "noun"]
+        "pos": [
+          "adjective",
+          "noun",
+          "adverb"
+        ]
       },
       {
         "word": "dog",
-        "pos": ["noun"]
+        "pos": [
+          "noun",
+          "adverb",
+          "verb-transitive",
+          "idiom"
+        ]
       }
     ];
-    console.log(parse(sentence));
+
+    var parseGenerator = DependencyParser();
+    var disambiguatedSentence = disambiguatePOS(sentence, 'pos');
+    var parseIterator = parseGenerator(sentence);
+    var parsed = runIteratorUntilDone(parseIterator);
+    var childBasedTree = flipTreeHeadToChild(parsed.sentence);
+
+    console.log(JSON.stringify(childBasedTree, null, '  '))
+
+    function runIteratorUntilDone(iterator) {
+      var result;
+      do {
+        result = iterator.next();
+      }
+      while (!result.done);
+
+      return result.value;
+    }
 
 Output:
 
     [
       {
         "word": "am",
-        "pos": ["verb"],
+        "pos": [
+          "verb"
+        ],
         "sentencePos": 1,
+        "defactoPOS": "verb",
         "children": [
           {
-            "word": "I",
-            "pos": ["noun"],
-            "directionFromHead": -1,
-            "sentencePos": 0
+            "word": "i",
+            "pos": [
+              "noun"
+            ],
+            "sentencePos": 0,
+            "defactoPOS": "noun",
+            "directionFromHead": -1
           },
           {
             "word": "dog",
-            "pos": ["noun"],
-            "directionFromHead": 1,
-            "sentencePos": 4
+            "pos": [
+              "noun"
+            ],
+            "sentencePos": 4,
+            "defactoPOS": "noun",
             "children": [
               {
                 "word": "a",
-                "pos": ["article"],
-                "directionFromHead": -1,
-                "sentencePos": 2
+                "pos": [
+                  "indefinite-article"
+                ],
+                "sentencePos": 2,
+                "defactoPOS": "indefinite-article",
+                "directionFromHead": -1
               },
               {
                 "word": "great",
-                "pos": ["adjective"],
-                "directionFromHead": -1,
-                "sentencePos": 3
+                "pos": [
+                  "adjective"
+                ],
+                "sentencePos": 3,
+                "defactoPOS": "adjective",
+                "directionFromHead": -1
               }
-            ]
+            ],
+            "directionFromHead": 1
           }
         ]
       }
